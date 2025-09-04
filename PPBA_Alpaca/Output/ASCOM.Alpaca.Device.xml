@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASCOM.Alpaca.Device</name>
+    </assembly>
+    <members>
+        <member name="T:ASCOM.Alpaca.Discovery.Responder">
+            <summary>
+            Enable Alpaca devices to respond to Alpaca discovery broadcasts by returning the Alpaca port number. This component is delivered in NuGet package: <b>ASCOM.Alpaca.Device</b> to minimise its footprint.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.Responder.AllowRemoteAccess">
+            <summary>
+            Enable responses to non-local discovery broadcasts
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.Responder.LocalRespondOnlyToLocalHost">
+            <summary>
+            Confine responses to localhost broadcasts only
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.Responder.Disposed">
+            <summary>
+            Flag whether the object has been disposed
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.#ctor(System.Int32,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create an Alpaca Responder reporting the AlpacaPort. This will use default Discovery Port (32227) and will respond on IPv4 and IPv6.
+            </summary>
+            <param name="AlpacaPort">The port the Alpaca REST API is available on</param>
+            <param name="Logger">ILogger object to which operational log messages will be sent.</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.#ctor(System.Int32,System.Boolean,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create an Alpaca Responder reporting the AlpacaPort. This will use default Discovery Port (32227).
+            </summary>
+            <param name="AlpacaPort">The port the Alpaca REST API is available on</param>
+            <param name="IPv4">Respond on IPv4</param>
+            <param name="IPv6">Respond on IPv6</param>
+            <param name="Logger">ILogger object to which operational log messages will be sent.</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.#ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create an Alpaca Responder reporting the AlpacaPort using a custom discovery port.
+            </summary>
+            <param name="AlpacaPort">The port the Alpaca REST API is available on</param>
+            <param name="DiscoveryPort">The Discovery Port</param>
+            <param name="IPv4">Respond on IPv4</param>
+            <param name="IPv6">Respond on IPv6</param>
+            <param name="Logger">ILogger object to which operational log messages will be sent.</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.InitIPv4">
+            <summary>
+            Create and listen on an IPv4 broadcast port
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.InitIPv6">
+            <summary>
+            Bind a UDP client to each network adapter and set the index and address for multicast
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.Dispose(System.Boolean)">
+            <summary>
+            Used by the CLR when disposing of objects. Do not use this method, use <see cref="M:ASCOM.Alpaca.Discovery.Responder.Dispose"/> instead.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Responder.Dispose">
+            <summary>
+            Dispose of the Responder object.
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Device.NamespaceDoc">
+            <summary>
+            Tools for Alpaca devices that support device discovery. This namespace is delivered in NuGet package: <b>ASCOM.Alpaca.Device</b>.
+            </summary>
+        </member>
+    </members>
+</doc>

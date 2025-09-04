@@ -1,0 +1,2185 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASCOM.Alpaca</name>
+    </assembly>
+    <members>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaClient">
+            <summary>
+            Helper functions to return an instance of an Alpaca client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaClient.GetDevice``1(ASCOM.Alpaca.Discovery.AscomDevice,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,ASCOM.Common.Alpaca.ImageArrayTransferType,ASCOM.Common.Alpaca.ImageArrayCompression,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca client for a discovered ASCOM device specifying all parameters
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ascomDevice">An AscomDevice instance representing the device to use (mandatory parameter)</param>
+            <param name="establishConnectionTimeout">Communications timeout (seconds) when initially connecting to the client. Default: 3 seconds</param>
+            <param name="standardDeviceResponseTimeout">Communications timeout (seconds) for commands that are expected to complete quickly. Default: 3 seconds</param>
+            <param name="longDeviceResponseTimeout">Communications timeout (seconds) for commands that are expected to take a long time such as synchronous telescope slews. Default: 100 seconds</param>
+            <param name="clientNumber">Arbitrary number identifying this particular client. Default: 1</param>
+            <param name="userName">Basic authentication user name. Supply a <see langword="null"/> or empty string if basic authentication is not required. Default: Empty string</param>
+            <param name="password"> Basic authentication password. Ignored if password is <see langword="null"/> or an empty string. Default: Empty string</param>
+            <param name="strictCasing">Set true to require strict JSON casing in device responses.. Default: true</param>
+            <param name="logger">ILogger instance or null. Default: null</param>
+            <param name="imageArrayTransferType">Image array transfer type (Only relevant to Camera devices). Default: ImageArrayTransferType.BestAvailable</param>
+            <param name="imageArrayCompression">Image array compression type (Only relevant to Camera devices). Default: ImageArrayCompression.None</param>
+            <param name="userAgentProductName">User agent header product name. Default: Not added to header.</param>
+            <param name="userAgentProductVersion">User agent header product version. Default: Not added to header.</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates. Default: User generated SSL certificates are not trusted.</param>
+            <returns>An Alpaca client instance for the supplied device and configuration</returns>
+            <remarks>ASCOM Camera client specific parameters can be set through the <see cref="T:ASCOM.Common.Alpaca.ImageArrayTransferType"/> and <see cref="T:ASCOM.Common.Alpaca.ImageArrayCompression"/> properties.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaClient.GetDevice``1(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,ASCOM.Common.Alpaca.ImageArrayTransferType,ASCOM.Common.Alpaca.ImageArrayCompression,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca client instance specifying all available parameters
+            </summary>
+            <typeparam name="T">.NET object type of the device to create e.g. AlpacaCamera, AlpacaTelescope,AlpacaFocuser etc.</typeparam>
+            <param name="serviceType">HTTP or HTTPS as a ServiceType Default: ServiceType.Http</param>
+            <param name="ipAddressString">The device's IP address Default: 127.0.0.1</param>
+            <param name="portNumber">The device's IP port number Default: 11111</param>
+            <param name="remoteDeviceNumber">The Alpaca device number of this ASCOM device Default: 0</param>
+            <param name="establishConnectionTimeout">Communications timeout (seconds) when initially connecting to the client. Default: 3 seconds</param>
+            <param name="standardDeviceResponseTimeout">Communications timeout (seconds) for commands that are expected to complete quickly. Default: 3 seconds</param>
+            <param name="longDeviceResponseTimeout">Communications timeout (seconds) for commands that are expected to take a long time such as synchronous telescope slews. Default: 100 seconds</param>
+            <param name="clientNumber">Arbitrary number identifying this particular client. Default: 1</param>
+            <param name="userName">Basic authentication user name. Supply a <see langword="null"/> or empty string if basic authentication is not required. Default: Empty string</param>
+            <param name="password"> Basic authentication password. Ignored if password is <see langword="null"/> or an empty string. Default: Empty string</param>
+            <param name="strictCasing">Set true to require strict JSON casing in device responses.. Default: true</param>
+            <param name="logger">ILogger instance or null. Default: null</param>
+            <param name="imageArrayTransferType">Image array transfer type (Only relevant to Camera devices). Default: ImageArrayTransferType.BestAvailable</param>
+            <param name="imageArrayCompression">Image array compression type (Only relevant to Camera devices). Default: ImageArrayCompression.None</param>
+            <param name="userAgentProductName">User agent header product name. Default: Not added to header.</param>
+            <param name="userAgentProductVersion">User agent header product version. Default: Not added to header.</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates. Default: User generated SSL certificates are not trusted.</param>
+            <returns>An Alpaca client of the specified type</returns>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaCamera">
+            <summary>
+            ASCOM Alpaca Camera client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.#ctor">
+            <summary>
+            Create a client for an Alpaca Camera device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,ASCOM.Common.Alpaca.ImageArrayTransferType,ASCOM.Common.Alpaca.ImageArrayCompression,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create a client for an Alpaca Camera device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="imageArrayTransferType">Specifies the method to be used to retrieve the ImageArray property value.</param>
+            <param name="imageArrayCompression">Extent to which the ImageArray data stream should be compressed.</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca Camera device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.ConfigureAndConnect(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,ASCOM.Common.Alpaca.ImageArrayTransferType,ASCOM.Common.Alpaca.ImageArrayCompression,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Configure the device and establish an HTTP connection
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="imageArrayTransferType">Specifies the method to be used to retrieve the ImageArray property value.</param>
+            <param name="imageArrayCompression">Extent to which the ImageArray data stream should be compressed.</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ImageArrayTransferType">
+            <summary>
+            Alpaca device IP address as a string
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ImageArrayCompression">
+            <summary>
+            Alpaca device IP address as a string
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CameraDeviceState">
+            <summary>
+            Camera device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.AbortExposure">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.PulseGuide(ASCOM.Common.DeviceInterfaces.GuideDirection,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.StartExposure(System.Double,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCamera.StopExposure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.BinX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.BinY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CameraState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CameraXSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CameraYSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanAbortExposure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanAsymmetricBin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanGetCoolerPower">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanPulseGuide">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanSetCCDTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanStopExposure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CCDTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CoolerOn">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CoolerPower">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ElectronsPerADU">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.FullWellCapacity">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.HasShutter">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.HeatSinkTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ImageArray">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ImageArrayVariant">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ImageReady">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.IsPulseGuiding">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.LastExposureDuration">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.LastExposureStartTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.MaxADU">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.MaxBinX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.MaxBinY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.NumX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.NumY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.PixelSizeX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.PixelSizeY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.SetCCDTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.StartX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.StartY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.BayerOffsetX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.BayerOffsetY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.CanFastReadout">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ExposureMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ExposureMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ExposureResolution">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.FastReadout">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.Gain">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.GainMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.GainMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.Gains">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.PercentCompleted">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ReadoutMode">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.ReadoutModes">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.SensorName">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.SensorType">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.Offset">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.OffsetMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.OffsetMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.Offsets">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCamera.SubExposureDuration">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator">
+            <summary>
+            ASCOM Alpaca CoverCalibrator client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.#ctor">
+            <summary>
+            Create a client for an Alpaca CoverCalibrator device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca CoverCalibrator device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca CoverCalibrator device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CoverCalibratorState">
+            <summary>
+            CoverCalibrator device state
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CoverState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CalibratorState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.Brightness">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.MaxBrightness">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.OpenCover">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CloseCover">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.HaltCover">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CalibratorOn(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CalibratorOff">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CalibratorChanging">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaCoverCalibrator.CoverMoving">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaDome">
+            <summary>
+            ASCOM Alpaca Dome client.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.#ctor">
+            <summary>
+            Create a client for an Alpaca Dome device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca Dome device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca Dome device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.DomeState">
+            <summary>
+            Dome device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.AbortSlew">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.CloseShutter">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.FindHome">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.OpenShutter">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.Park">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.SetPark">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.SlewToAltitude(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.SlewToAzimuth(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDome.SyncToAzimuth(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.Altitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.AtHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.AtPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.Azimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanFindHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanSetAltitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanSetAzimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanSetPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanSetShutter">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanSlave">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.CanSyncAzimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.ShutterStatus">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.Slaved">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDome.Slewing">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaFilterWheel">
+            <summary>
+            ASCOM Alpaca FilterWheel client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFilterWheel.#ctor">
+            <summary>
+            Create a client for an Alpaca FilterWheel device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFilterWheel.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca FilterWheel device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFilterWheel.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca FilterWheel device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be used to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFilterWheel.FilterWheelState">
+            <summary>
+            FilterWheel device state
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFilterWheel.FocusOffsets">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFilterWheel.Names">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFilterWheel.Position">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaFocuser">
+            <summary>
+            ASCOM Alpaca Focuser client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFocuser.#ctor">
+            <summary>
+            Create a client for an Alpaca Focuser device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFocuser.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca Focuser device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFocuser.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca Focuser device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.FocuserState">
+            <summary>
+            Focuser device state
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.Absolute">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.IsMoving">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.MaxIncrement">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.MaxStep">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.Position">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.StepSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.TempComp">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.TempCompAvailable">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaFocuser.Temperature">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFocuser.Halt">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaFocuser.Move(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaObservingConditions">
+            <summary>
+            ASCOM Alpaca ObservingConditions client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaObservingConditions.#ctor">
+            <summary>
+            Create a client for an Alpaca ObservingConditions device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaObservingConditions.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca ObservingConditions device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaObservingConditions.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca ObservingConditions device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.ObservingConditionsState">
+            <summary>
+            ObservingConditions device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaObservingConditions.TimeSinceLastUpdate(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaObservingConditions.SensorDescription(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaObservingConditions.Refresh">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.AveragePeriod">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.CloudCover">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.DewPoint">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.Humidity">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.Pressure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.RainRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.SkyBrightness">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.SkyQuality">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.StarFWHM">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.SkyTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.Temperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.WindDirection">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.WindGust">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaObservingConditions.WindSpeed">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaRotator">
+            <summary>
+            ASCOM Alpaca Rotator client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.#ctor">
+            <summary>
+            Create a client for an Alpaca Rotator device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca Rotator device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca Rotator device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.RotatorState">
+            <summary>
+            Rotator device state
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.CanReverse">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.IsMoving">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.Position">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.Reverse">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.StepSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.TargetPosition">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.Halt">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.Move(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.MoveAbsolute(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaRotator.MechanicalPosition">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.Sync(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaRotator.MoveMechanical(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaSafetyMonitor">
+            <summary>
+            ASCOM Alpaca SafetyMonitor client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSafetyMonitor.#ctor">
+            <summary>
+            Create a client for an Alpaca SafetyMonitor device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSafetyMonitor.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca SafetyMonitor device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSafetyMonitor.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca SafetyMonitor device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaSafetyMonitor.SafetyMonitorState">
+            <summary>
+            SafetyMonitor device state
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaSafetyMonitor.IsSafe">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaSwitch">
+            <summary>
+            ASCOM Alpaca Switch client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.#ctor">
+            <summary>
+            Create a client for an Alpaca Switch device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca Switch device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca Switch device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.CanWrite(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.GetSwitch(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.GetSwitchDescription(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.GetSwitchName(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.GetSwitchValue(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaSwitch.MaxSwitch">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.MaxSwitchValue(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.MinSwitchValue(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.SwitchStep(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.SetSwitchName(System.Int16,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.SetSwitch(System.Int16,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.SetSwitchValue(System.Int16,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.SetAsync(System.Int16,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.SetAsyncValue(System.Int16,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.CanAsync(System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.StateChangeComplete(System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaSwitch.CancelAsync(System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaTelescope">
+            <summary>
+            ASCOM Alpaca Telescope client
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.#ctor">
+            <summary>
+            Create a client for an Alpaca Telescope device with all parameters set to default values
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32,System.String,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create an Alpaca Telescope device specifying all parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="establishConnectionTimeout">Timeout (seconds) to initially connect to the Alpaca device</param>
+            <param name="standardDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to complete quickly e.g. retrieving CanXXX properties</param>
+            <param name="longDeviceResponseTimeout">Timeout (seconds) for transactions that are expected to take a long time to complete e.g. Camera.ImageArray</param>
+            <param name="clientNumber">Arbitrary integer that represents this client. (Should be the same for all transactions from this client)</param>
+            <param name="userName">Basic authentication user name for the Alpaca device</param>
+            <param name="password">basic authentication password for the Alpaca device</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+            <param name="userAgentProductName">Optional product name to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="userAgentProductVersion">Optional product version to include in the User-Agent HTTP header sent to the Alpaca device</param>
+            <param name="trustUserGeneratedSslCertificates">Trust user generated SSL certificates</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.#ctor(ASCOM.Common.Alpaca.ServiceType,System.String,System.Int32,System.Int32,System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Create a client for an Alpaca Telescope device specifying the minimum number of parameters
+            </summary>
+            <param name="serviceType">HTTP or HTTPS</param>
+            <param name="ipAddressString">Alpaca device's IP Address</param>
+            <param name="portNumber">Alpaca device's IP Port number</param>
+            <param name="remoteDeviceNumber">Alpaca device's device number e.g. Telescope/0</param>
+            <param name="strictCasing">Tolerate or throw exceptions  if the Alpaca device does not use strictly correct casing for JSON object element names.</param>
+            <param name="logger">Optional ILogger instance that can be sued to record operational information during execution</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.TelescopeState">
+            <summary>
+            State response from the device
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.AbortSlew">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.AlignmentMode">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.Altitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.ApertureArea">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.ApertureDiameter">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.AtHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.AtPark">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.AxisRates(ASCOM.Common.DeviceInterfaces.TelescopeAxis)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.Azimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanFindHome">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.CanMoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanPulseGuide">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSetDeclinationRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSetGuideRates">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSetPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSetPierSide">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSetRightAscensionRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSetTracking">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSlew">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSlewAltAz">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSlewAltAzAsync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSlewAsync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanSyncAltAz">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.CanUnpark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.Declination">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.DeclinationRate">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.DestinationSideOfPier(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.DoesRefraction">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.EquatorialSystem">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.FindHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.FocalLength">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.GuideRateDeclination">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.GuideRateRightAscension">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.IsPulseGuiding">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.Park">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.PulseGuide(ASCOM.Common.DeviceInterfaces.GuideDirection,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.RightAscension">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.RightAscensionRate">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SetPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.SideOfPier">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.SiderealTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.SiteElevation">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.SiteLatitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.SiteLongitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewSettleTime">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewToAltAz(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewToAltAzAsync(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewToCoordinates(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewToCoordinatesAsync(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewToTarget">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SlewToTargetAsync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.Slewing">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SyncToAltAz(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SyncToCoordinates(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.SyncToTarget">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.TargetDeclination">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.TargetRightAscension">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.Tracking">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.TrackingRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.TrackingRates">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaTelescope.UTCDate">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaTelescope.Unpark">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass">
+            <summary>
+            Base class for Alpaca client devices
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.#ctor">
+            <summary>
+            Create a new instance of the AlpacaDeviceBaseClass passing the instance to the client configuration class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.ClientConfiguration">
+            <summary>
+            Provide access to the client configuration
+            </summary>
+            <remarks>
+            The returned <see cref="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.ClientConfiguration"/> instance properties can be used to read and change the client's configuration. 
+            If any values are changed, the <see cref="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.RefreshClient"/> method must be called to bring the changes into effect.
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.RefreshClient">
+            <summary>
+            Updates the internal HTTP client with a new instance.
+            </summary>
+            <remarks>This method must be called after changing the client configuration through the <see cref="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.ClientConfiguration"/> property.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Action(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.CommandBlind(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.CommandBool(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.CommandString(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Connected">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.DriverInfo">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.InterfaceVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.SupportedActions">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Connect">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Disconnect">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Connecting">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.DeviceState">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Dispose(System.Boolean)">
+            <summary>
+            Dispose call used by the CLR during clean-up. Do not use this method, use <see cref="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Dispose"/> instead.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass.Dispose">
+            <summary>
+            This method is a "clean-up" method that is primarily of use to drivers that are written in languages such as C# and VB.NET where resource clean-up is initially managed by the language's 
+            runtime garbage collection mechanic. Driver authors should take care to ensure that a client or runtime calling Dispose() does not adversely affect other connected clients.
+            Applications should not call this method.
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.ClientConfiguration">
+            <summary>
+            Class presenting client specific configuration
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.ClientConfiguration.#ctor(ASCOM.Alpaca.Clients.AlpacaDeviceBaseClass)">
+            <summary>
+            Initialise the configuration class, saving the supplied base class reference for use within the class
+            </summary>
+            <param name="baseClass">Base class reference for this device</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.ServiceType">
+            <summary>
+            HTTP or HTTPS service type used to communicate with the Alpaca device
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.IpAddress">
+            <summary>
+            Alpaca device IP address as a string
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.PortNumber">
+            <summary>
+            Alpaca device IP port number.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.RemoteDeviceNumber">
+            <summary>
+            Alpaca device number of the ASCOM device
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.EstablishConnectionTimeout">
+            <summary>
+            Communications timeout (seconds) when initially connecting to the client
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.StandardDeviceResponseTimeout">
+            <summary>
+            Communications timeout (seconds) for commands that are expected to complete quickly
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.LongDeviceResponseTimeout">
+            <summary>
+            Communications timeout (seconds) for commands that are expected to take a long time such as synchronous telescope slews.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.ClientNumber">
+            <summary>
+            Arbitrary number identifying this particular client
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.UserName">
+            <summary>
+            Basic authentication user name.
+            </summary>
+            <remarks>Supply a <see langword="null"/> or empty string if basic authentication is not required</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.Password">
+            <summary>
+            Basic authentication password
+            </summary>
+            <remarks>Ignored if password is <see langword="null"/> or an empty string</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.StrictCasing">
+            <summary>
+            Set <see langword="true"/> to require that clients case JSON variables in accordance with the Alpaca standard. Set <see langword="false"/> to accept any casing.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.DeviceType">
+            <summary>
+            Device type of this client
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.Logger">
+            <summary>
+            ILogger instance to which operational debug messages will be sent.
+            </summary>
+            <remarks>Supply a <see langword="null"/> value to suppress operational logging.</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.UserAgentProductName">
+            <summary>
+            Product name to include in the User-Agent HTTP header
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.UserAgentProductVersion">
+            <summary>
+            Product version to include in the User-Agent HTTP header
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.ImageArrayCompression">
+            <summary>
+            Image array compression level (Camera specific)
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.ClientConfiguration.ImageArrayTransferType">
+            <summary>
+            Image array transfer type (Camera specific)
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.IAlpacaClientV1">
+            <summary>
+            Interface to expose the common ASCOM methods plus the Alpaca device configuration property
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.IAlpacaClientV1.ClientConfiguration">
+            <summary>
+            Client configuration state
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.IAlpacaClientV2">
+            <summary>
+            Interface to expose the common Platform 7 ASCOM methods plus the Alpaca device configuration property
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Clients.IAlpacaClientV2.ClientConfiguration">
+            <summary>
+            Client configuration state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.IAlpacaClientV2.RefreshClient">
+            <summary>
+            Updates the internal HTTP client with a new instance.
+            </summary>
+            <remarks>This method must be called after changing the client configuration through the <see cref="P:ASCOM.Alpaca.Clients.IAlpacaClientV2.ClientConfiguration"/> property.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.#cctor">
+            <summary>
+            Static initialiser to set up the objects we need at run time
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.GetUniqueClientNumber">
+            <summary>
+            Returns a unique client number to the calling instance in the range 1::65536
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.GetNextTransactionNumber">
+            <summary>
+            Returns a unique client number to the calling instance
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.CreateHttpClient(System.Net.Http.HttpClient@,ASCOM.Common.Alpaca.ServiceType,System.String,System.Decimal,System.UInt32,ASCOM.Common.DeviceTypes,System.String,System.String,ASCOM.Common.Alpaca.ImageArrayCompression,ASCOM.Common.Interfaces.ILogger,System.String,System.String,System.Boolean)">
+            <summary>
+            Create and configure a REST client to communicate with the Alpaca device
+            </summary>
+            <param name="httpClient"></param>
+            <param name="ipAddressString"></param>
+            <param name="portNumber"></param>
+            <param name="serviceType"></param>
+            <param name="logger"></param>
+            <param name="clientNumber"></param>
+            <param name="deviceType"></param>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <param name="imageArrayCompression"></param>
+            <param name="userAgentProductName"></param>
+            <param name="userAgentProductVersion"></param>
+            <param name="trustUnsignedSslCertificates"></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.GetValue``1(System.UInt32,System.Net.Http.HttpClient,System.Int32,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.Reflection.MemberTypes)">
+            <summary>
+            Overload used by methods other than ImageArray and ImageArrayVariant
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="clientNumber"></param>
+            <param name="client"></param>
+            <param name="timeout"></param>
+            <param name="URIBase"></param>
+            <param name="strictCasing"></param>
+            <param name="logger"></param>
+            <param name="method"></param>
+            <param name="memberType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.GetValue``1(System.UInt32,System.Net.Http.HttpClient,System.Int32,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,ASCOM.Common.Alpaca.ImageArrayTransferType,ASCOM.Common.Alpaca.ImageArrayCompression,System.Reflection.MemberTypes)">
+            <summary>
+            Overload for use by the ImageArray and ImageArrayVariant methods
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="clientNumber"></param>
+            <param name="client"></param>
+            <param name="timeout"></param>
+            <param name="URIBase"></param>
+            <param name="strictCasing"></param>
+            <param name="logger"></param>
+            <param name="method"></param>
+            <param name="imageArrayTransferType"></param>
+            <param name="imageArrayCompression"></param>
+            <param name="memberType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.SendToRemoteDevice``1(System.UInt32,System.Net.Http.HttpClient,System.Int32,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.Http.HttpMethod,System.Reflection.MemberTypes)">
+            <summary>
+            Send a command to the remote device, retrying a given number of times if a socket exception is received
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="clientNumber"></param>
+            <param name="client"></param>
+            <param name="timeout"></param>
+            <param name="URIBase"></param>
+            <param name="strictCasing"></param>
+            <param name="logger"></param>
+            <param name="method"></param>
+            <param name="Parameters"></param>
+            <param name="HttpMethod"></param>
+            <param name="memberType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Clients.DynamicClientDriver.SendToRemoteDevice``1(System.UInt32,System.Net.Http.HttpClient,System.Int32,System.String,System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Net.Http.HttpMethod,ASCOM.Common.Alpaca.ImageArrayTransferType,ASCOM.Common.Alpaca.ImageArrayCompression,System.Reflection.MemberTypes)">
+            <summary>
+            Send a command to the remote device, retrying a given number of times if a socket exception is received, specifying an image array transfer type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="clientNumber"></param>
+            <param name="client"></param>
+            <param name="timeout">Timeout in seconds</param>
+            <param name="uriBase"></param>
+            <param name="strictCasing"></param>
+            <param name="logger"></param>
+            <param name="method"></param>
+            <param name="parameters"></param>
+            <param name="httpMethod"></param>
+            <param name="imageArrayTransferType"></param>
+            <param name="imageArrayCompression"></param>
+            <param name="memberType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ASCOM.Alpaca.Clients.NamespaceDoc">
+            <summary>
+            Alpaca Client toolkit providing a standard interface to Alpaca devices. This namespace is delivered in NuGet package: <b>ASCOM.Alpaca.Components</b>.
+            </summary>
+            <remarks>
+            <para>Please note that you will need to add this PropertyGroup to .NET projects that target Android in order for Alpaca discovery to work as expected:</para>
+            <code title="Add to Project File" language="xml">
+            &lt;PropertyGroup Condition = "$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'"&gt;
+               &lt;UseNativeHttpHandler&gt;false&lt;/UseNativeHttpHandler&gt;
+            &lt;/PropertyGroup&gt;
+            </code>
+            <para>This may also be the case for projects that target IOS, but has not yet been confirmed</para>
+            </remarks>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.AlpacaDiscovery">
+            <summary>
+            Enables clients to discover Alpaca devices by sending one or more discovery polls. Returns information on discovered <see cref="T:ASCOM.Alpaca.Discovery.AlpacaDevice">Alpaca devices</see> and the <see cref="T:ASCOM.Alpaca.Discovery.AscomDevice">ASCOM devices</see> that are available.
+            </summary>
+            <remarks>
+            <para>
+            The discovery process is asynchronous and is initiated by the <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.StartDiscovery(System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType)"/> method. Clients can then either work synchronously by looping and periodically 
+            polling the <see cref="P:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryComplete"/> property or work asynchronously by handling the <see cref="E:ASCOM.Alpaca.Discovery.AlpacaDiscovery.AlpacaDevicesUpdated"/> and <see cref="E:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryCompleted"/> events while doing other work.
+            </para>
+            <para>
+            The <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.StartDiscovery(System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType)"/> method is used to set the character of the discovery e.g. the discovery duration and whether to search for IPv4 and/or IPv6 devices. 
+            After the specified discovery duration, the <see cref="P:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryComplete"/> event fires and the <see cref="E:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryCompleted"/> property returns True.
+            </para>
+            <para>
+            Once discovery is complete, .NET clients can retrieve details of discovered Alpaca devices and associated ASCOM interface devices through the <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevices"/> and <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevices(System.Nullable{ASCOM.Common.DeviceTypes})"/> methods.
+            COM clients must use the <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevicesAsArrayList"/> and <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevicesAsArrayList(System.Nullable{ASCOM.Common.DeviceTypes})"/> properties because COM does not support the generic classes used 
+            in the <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevices"/> and <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevices(System.Nullable{ASCOM.Common.DeviceTypes})"/> methods. 
+            </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.#ctor">
+            <summary>
+            Initialise the Alpaca discovery component
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.#ctor(System.Boolean,ASCOM.Common.Interfaces.ILogger,System.String,System.String)">
+            <summary>
+            Initialiser that takes a trace logger (Can only be used from .NET clients)
+            </summary>
+            <param name="strictCasing">Trace logger instance to use for activity logging</param>
+            <param name="logger">Trace logger instance to use for activity logging</param>
+            <param name="productName">Product name in the User-Agent header of management API HTTP calls</param>
+            <param name="productVersion">Product version in the User-Agent header of management API HTTP calls</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.Dispose(System.Boolean)">
+            <summary>
+            Call used by the CLR during disposal. Do not call this method, use <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.Dispose"/> instead.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.Dispose">
+            <summary>
+            Disposes of the discovery component and cleans up resources
+            </summary>
+        </member>
+        <member name="E:ASCOM.Alpaca.Discovery.AlpacaDiscovery.AlpacaDevicesUpdated">
+            <summary>
+            Raised every time information about discovered devices is updated
+            </summary>
+            <remarks>This event is only available to .NET clients, there is no equivalent for COM clients.</remarks>
+        </member>
+        <member name="E:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryCompleted">
+            <summary>
+            Raised when the discovery is complete
+            </summary>
+            <remarks>This event is only available to .NET clients. COM clients should poll the <see cref="P:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryComplete"/> property periodically to determine when discovery is complete.</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDiscovery.DiscoveryComplete">
+            <summary>
+            Flag that indicates when a discovery cycle is complete
+            </summary>
+            <returns>True when discovery is complete.</returns>
+            <remarks>The discovery is considered complete when the time period specified on the <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.StartDiscovery(System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType)"/> method is exceeded.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevicesAsArrayList">
+            <summary>
+            Returns an ArrayList of discovered Alpaca devices for use by COM clients
+            </summary>
+            <returns>ArrayList of <see cref="T:ASCOM.Alpaca.Discovery.AlpacaDevice"/>classes</returns>
+            <remarks>This method is for use by COM clients because it is not possible to pass a generic list as used in <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevices"/> through a COM interface. 
+            .NET clients should use <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevices"/> instead of this method.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevices">
+            <summary>
+            Returns a generic List of discovered Alpaca devices.
+            </summary>
+            <returns>List of <see cref="T:ASCOM.Alpaca.Discovery.AlpacaDevice"/>classes</returns>
+            <remarks>This method is only available to .NET clients because COM cannot handle generic types. COM clients should use <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevicesAsArrayList"/>.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevicesAsArrayList(System.Nullable{ASCOM.Common.DeviceTypes})">
+            <summary>
+            Returns an ArrayList of discovered ASCOM devices, of the specified device type, for use by COM clients
+            </summary>
+            <param name="deviceType">The device type for which to search e.g. Telescope, Use <see langword="null"/> to return devices of all types.</param>
+            <returns>ArrayList of <see cref="T:ASCOM.Alpaca.Discovery.AscomDevice"/>classes</returns>
+            <remarks>
+            <para>
+            This method is for use by COM clients because it is not possible to return a generic list, as used in <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevices(System.Nullable{ASCOM.Common.DeviceTypes})"/>, through a COM interface. 
+            .NET clients should use <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevices(System.Nullable{ASCOM.Common.DeviceTypes})"/> instead of this method.
+            </para>
+            <para>
+            This method will return every discovered device, regardless of device type, if the supplied "deviceType" parameter is null.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevices(System.Nullable{ASCOM.Common.DeviceTypes})">
+            <summary>
+            Returns a generic list of discovered ASCOM devices of the specified device type.
+            </summary>
+            <param name="deviceType">The device type for which to search e.g. Telescope, Focuser. Use <see langword="null"/> to return devices of all types.</param>
+            <returns>List of AscomDevice classes</returns>
+            <remarks>
+            <para>
+            This method is only available to .NET clients because COM cannot handle generic types. COM clients should use <see cref="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevicesAsArrayList"/>.
+            </para>
+            <para>
+            This method will return every discovered device, regardless of device type, if the supplied "deviceType" parameter is null.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.StartDiscovery(System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType)">
+            <summary>
+            Start an Alpaca device discovery based on the supplied parameters
+            </summary>
+            <param name="numberOfPolls">Number of polls to send in the range 1 to 5 (Default 1)</param>
+            <param name="pollInterval">Interval (milliseconds) between each poll in the range 10 to 5000 milliseconds (Default 100ms) </param>
+            <param name="discoveryPort">Discovery port on which to send the broadcast (normally 32227) in the range 1025 to 65535 (Default 32227)</param>
+            <param name="discoveryDuration">Length of time (seconds) to wait for devices to respond (Default 1.0 seconds)</param>
+            <param name="resolveDnsName">Attempt to resolve host IP addresses to DNS names (Default <see langword="true"/>)</param>
+            <param name="useIpV4">Search for Alpaca devices that use IPv4 addresses. One or both of useIpV4 and useIpV6 must be True. (Default <see langword="true"/>)</param>
+            <param name="useIpV6">Search for Alpaca devices that use IPv6 addresses. One or both of useIpV4 and useIpV6 must be True. (Default <see langword="false"/>)</param>
+            <param name="serviceType"><see cref="F:ASCOM.Common.Alpaca.ServiceType.Http"/> or <see cref="F:ASCOM.Common.Alpaca.ServiceType.Https"/></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDevicesAsync(System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType,ASCOM.Common.Interfaces.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Returns an awaitable Task that provides a list of discovered Alpaca devices
+            </summary>
+            <param name="numberOfPolls">Number of polls to send in the range 1 to 5</param>
+            <param name="pollInterval">Interval (milliseconds) between each poll in the range 10 to 5000 milliseconds.</param>
+            <param name="discoveryPort">Discovery port on which to send the broadcast (normally 32227) in the range 1025 to 65535.</param>
+            <param name="discoveryDuration">Length of time (seconds) to wait for devices to respond.</param>
+            <param name="resolveDnsName">Attempt to resolve host IP addresses to DNS names</param>
+            <param name="useIpV4">Search for Alpaca devices that use IPv4 addresses. One or both of useIpV4 and useIpV6 must be True.</param>
+            <param name="useIpV6">Search for Alpaca devices that use IPv6 addresses. One or both of useIpV4 and useIpV6 must be True.</param>
+            <param name="serviceType"><see cref="F:ASCOM.Common.Alpaca.ServiceType.Http"/> or <see cref="F:ASCOM.Common.Alpaca.ServiceType.Https"/></param>
+            <param name="logger"></param>
+            <param name="cancellationToken">Cancellation token to cancel the discovery</param>
+            <returns>Returns an awaitable Task</returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAscomDevicesAsync(System.Nullable{ASCOM.Common.DeviceTypes},System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType,ASCOM.Common.Interfaces.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Returns an awaitable Task that provides a list of discovered ASCOM devices of the specified device type 
+            </summary>
+            <param name="deviceTypes">ASCOM device type to discover e.g. <see cref="F:ASCOM.Common.DeviceTypes.Telescope"/> or <see cref="F:ASCOM.Common.DeviceTypes.Camera"/> </param>
+            <param name="numberOfPolls">Number of polls to send in the range 1 to 5</param>
+            <param name="pollInterval">Interval (milliseconds) between each poll in the range 10 to 5000 milliseconds.</param>
+            <param name="discoveryPort">Discovery port on which to send the broadcast (normally 32227) in the range 1025 to 65535.</param>
+            <param name="discoveryDuration">Length of time (seconds) to wait for devices to respond.</param>
+            <param name="resolveDnsName">Attempt to resolve host IP addresses to DNS names</param>
+            <param name="useIpV4">Search for Alpaca devices that use IPv4 addresses. One or both of useIpV4 and useIpV6 must be True.</param>
+            <param name="useIpV6">Search for Alpaca devices that use IPv6 addresses. One or both of useIpV4 and useIpV6 must be True.</param>
+            <param name="serviceType"><see cref="F:ASCOM.Common.Alpaca.ServiceType.Http"/> or <see cref="F:ASCOM.Common.Alpaca.ServiceType.Https"/></param>
+            <param name="logger"></param>
+            <param name="cancellationToken">Cancellation token to cancel the discovery</param>
+            <returns>Returns an awaitable Task</returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.AsynchronousDiscovery(System.String,System.Int32,System.Int32,System.Int32,System.Double,System.Boolean,System.Boolean,System.Boolean,ASCOM.Common.Alpaca.ServiceType,ASCOM.Common.Interfaces.ILogger,ASCOM.Alpaca.Discovery.AlpacaDiscovery,System.Threading.CancellationToken)">
+            <summary>
+            Effect an asynchronous discovery, using events to detect discovery completion and task cancellation
+            </summary>
+            <param name="methodName"></param>
+            <param name="numberOfPolls"></param>
+            <param name="pollInterval"></param>
+            <param name="discoveryPort"></param>
+            <param name="discoveryDuration"></param>
+            <param name="resolveDnsName"></param>
+            <param name="useIpV4"></param>
+            <param name="useIpV6"></param>
+            <param name="serviceType"></param>
+            <param name="logger"></param>
+            <param name="discovery"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.RaiseAnAlpacaDevicesChangedEvent">
+            <summary>
+            Raise an Alpaca devices updated event
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.OnDiscoveryCompleteTimer(System.Object)">
+            <summary>
+            Discovery timer event handler - called when the allocated discovery period has ended
+            </summary>
+            <param name="state">Timer state</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.FoundDeviceEventHandler(System.Object,System.Net.IPEndPoint)">
+            <summary>
+            Handler for device responses coming from the Finder
+            </summary>
+            <param name="caller">Initiating object.</param>
+            <param name="responderIPEndPoint">Responder's IP address and port</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetAlpacaDeviceInformation(System.Object)">
+            <summary>
+            Get Alpaca device information from the management API
+            </summary>
+            <param name="deviceIpEndPointObject"></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.ResolveIpAddressToHostName(System.Object)">
+            <summary>
+            Resolve a host IP address to a host name
+            </summary>
+            <remarks>This first makes a DNS query and uses the result if found. If not found it then tries a Microsoft DNS call which also searches the local hosts and makes a netbios query.
+            If this returns an answer it is use. Otherwise the IP address is returned as the host name</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.GetHostEntryCallback(System.IAsyncResult)">
+            <summary>
+            Record the IPs in the state object for later use.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDiscovery.LogMessage(System.String,System.String)">
+            <summary>
+            Log a message to the screen, adding the current managed thread ID
+            </summary>
+            <param name="methodName"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.AlpacaDiscoveryResponse">
+            <summary>
+            Class representing the IP port of the Alpaca device
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDiscoveryResponse.AlpacaPort">
+            <summary>
+            Lower-case for serialiser
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.AlpacaDevice">
+            <summary>
+            Data object describing an Alpaca device that supports discovery as returned by the <see cref="T:ASCOM.Alpaca.Discovery.AlpacaDiscovery"/> component.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDevice.#ctor">
+            <summary>
+            Initialises the class with default values
+            </summary>
+            <remarks>COM clients should use this initialiser and set the properties individually because COM only supports parameterless initialisers.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDevice.#ctor(ASCOM.Common.Alpaca.ServiceType,System.Net.IPEndPoint,System.String)">
+            <summary>
+            Initialise the service type, IP end point and status message - Can only be used from .NET clients
+            </summary>
+            <param name="serviceType">HTTP or HTTPS service type</param>
+            <param name="ipEndPoint">Alpaca device IP endpoint</param>
+            <param name="statusMessage">Device status message</param>
+            <remarks>This can only be used by .NET clients because COM only supports parameterless initialisers.</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ServiceType">
+            <summary>
+            HTTP or HTTPS service type used to communicate with the Alpaca device
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.HostName">
+            <summary>
+            The Alpaca device's DNS host name, if available, otherwise its IP address. IPv6 addresses will be in canonical form.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.IpAddress">
+            <summary>
+            The Alpaca device's IP address. IPv6 addresses will be in canonical form.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.Port">
+            <summary>
+            Alpaca device's IP port number
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ConfiguredDevicesAsArrayList">
+            <summary>
+            List of ASCOM devices available on this Alpaca device as an ArrayList for COM clients
+            </summary>
+            <remarks>
+            This method is primarily to support COM clients because COM does not support generic lists. .NET clients should use the <see cref="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ConfiguredDevices"/> property instead.
+            </remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.SupportedInterfaceVersions">
+            <summary>
+            Array of supported Alpaca interface version numbers
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ServerName">
+            <summary>
+            The Alpaca device's configured name
+            </summary>
+            <returns>String server name</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.Manufacturer">
+            <summary>
+            The device manufacturer's name
+            </summary>
+            <returns>String manufacturer name</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ManufacturerVersion">
+            <summary>
+            The device's version as set by the manufacturer
+            </summary>
+            <returns>String server version</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.Location">
+            <summary>
+            The Alpaca device's configured location
+            </summary>
+            <returns>String location</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ConfiguredDevices">
+            <summary>
+            List of ASCOM devices available on this Alpaca device
+            </summary>
+            <remarks>
+            This method can only be used by .NET clients. COM clients should use the <see cref="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ConfiguredDevicesAsArrayList"/> property.
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDevice.AscomDevices(System.Nullable{ASCOM.Common.DeviceTypes})">
+            <summary>
+            Return a list of AscomDevices of a given device type that are served by this AlpacaDevice
+            </summary>
+            <param name="deviceType">Required device type or null for all device types</param>
+            <returns>List of AscomDevice</returns>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AlpacaDevice.AscomDevicesAsArrayList(System.Nullable{ASCOM.Common.DeviceTypes})">
+            <summary>
+            List of ASCOM devices available on this Alpaca device as an ArrayList for COM clients
+            </summary>
+            <param name="deviceType">Required device type or null for all device types</param>
+            <returns>ArrayList of AscomDevice</returns>
+            <remarks>
+            This method is primarily to support COM clients because COM does not support generic lists. .NET clients should use the <see cref="P:ASCOM.Alpaca.Discovery.AlpacaDevice.ConfiguredDevices"/> property instead.
+            </remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.StatusMessage">
+            <summary>
+            Alpaca device's status message
+            </summary>
+            <remarks>This should be an empty string in normal operation when there are no issues but should be changed to an error message when an issue occurs.</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AlpacaDevice.IPEndPoint">
+            <summary>
+            Alpaca device's IP endpoint
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.AscomDevice">
+            <summary>
+            Data object describing an ASCOM device that is served by an Alpaca device as returned by the <see cref="T:ASCOM.Alpaca.Discovery.AlpacaDiscovery"/> component.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AscomDevice.#ctor">
+            <summary>
+            Initialises the class with default values
+            </summary>
+            <remarks>COM clients should use this initialiser and set the properties individually because COM only supports parameterless initialisers.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AscomDevice.#ctor(System.String,System.String,System.Int32,System.String,ASCOM.Alpaca.Discovery.AlpacaDevice,System.Int32)">
+            <summary>
+            Initialise the class providing the device type as a string device type name
+            </summary>
+            <param name="ascomDdeviceName">ASCOM device name</param>
+            <param name="ascomDeviceTypeName">ASCOM device type name</param>
+            <param name="alpacaDeviceNumber">Alpaca API device number</param>
+            <param name="uniqueId">ASCOM device unique ID</param>
+            <param name="alpacaDevice">AlpacaDevice instance that servers this ASCOM device.</param>
+            <param name="interfaceVersion">Supported Alpaca interface version</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AscomDevice.#ctor(System.String,ASCOM.Common.DeviceTypes,System.Int32,System.String,ASCOM.Alpaca.Discovery.AlpacaDevice,System.Int32)">
+            <summary>
+            Initialise the class providing the device type as a DeviceTypes enum value
+            </summary>
+            <param name="ascomDdeviceName">ASCOM device name</param>
+            <param name="ascomDeviceType">ASCOM device type</param>
+            <param name="alpacaDeviceNumber">Alpaca API device number</param>
+            <param name="uniqueId">ASCOM device unique ID</param>
+            <param name="alpacaDevice">AlpacaDevice instance that servers this ASCOM device.</param>
+            <param name="interfaceVersion">Supported Alpaca interface version</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AscomDevice.#ctor(System.String,ASCOM.Common.DeviceTypes,System.Int32,System.String,ASCOM.Common.Alpaca.ServiceType,System.Net.IPEndPoint,System.String,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initialise the ASCOM device name, ASCOM device type and ASCOM device unique ID, plus
+            the Alpaca API device number, unique ID, service type, device IP endpoint, Alpaca unique ID, interface version and status message
+            </summary>
+            <param name="ascomDdeviceName">ASCOM device name</param>
+            <param name="ascomDeviceType">ASCOM device type</param>
+            <param name="alpacaDeviceNumber">Alpaca API device number</param>
+            <param name="uniqueId">ASCOM device unique ID</param>
+            <param name="serviceType">HTTP or HTTPS service type</param>
+            <param name="ipEndPoint">Alpaca device IP endpoint</param>
+            <param name="hostName">ALapca device host name</param>
+            <param name="interfaceVersion">Supported Alpaca interface version</param>
+            <param name="serverName">ALapca device host name</param>
+            <param name="manufacturer">ALapca device host name</param>
+            <param name="manufacturerVersion">ALapca device host name</param>
+            <param name="location">ALapca device host name</param>
+            <remarks>This can only be used by .NET clients because COM only supports parameterless initialisers.</remarks>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.AscomDevice.Initialise(System.String,System.Int32,System.String,ASCOM.Common.Alpaca.ServiceType,System.Net.IPEndPoint,System.String,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initialise the ASCOM device name, ASCOM device type and ASCOM device unique ID, plus
+            the Alpaca API device number, unique ID, service type, device IP endpoint, Alpaca unique ID, interface version and status message
+            </summary>
+            <param name="ascomDdeviceName">ASCOM device name</param>
+            <param name="alpacaDeviceNumber">Alpaca API device number</param>
+            <param name="uniqueId">ASCOM device unique ID</param>
+            <param name="serviceType">HTTP or HTTPS service type</param>
+            <param name="ipEndPoint">Alpaca device IP endpoint</param>
+            <param name="hostName">ALapca device host name</param>
+            <param name="interfaceVersion">Supported Alpaca interface version</param>
+            <param name="serverName">ALapca device host name</param>
+            <param name="manufacturer">ALapca device host name</param>
+            <param name="manufacturerVersion">ALapca device host name</param>
+            <param name="location">ALapca device host name</param>
+            <remarks>This can only be used by .NET clients because COM only supports parameterless initialisers.</remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.AscomDeviceName">
+            <summary>
+            ASCOM device name
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.AscomDeviceType">
+            <summary>
+            ASCOM device type
+            </summary>
+            <remarks>
+            This field will be populated when the device type is one of the recognised ASCOM types such as Telescope or Camera.
+            When this field is populated the <see cref="P:ASCOM.Alpaca.Discovery.AscomDevice.NonAscomDeviceType"/> property will return <see langword="null" />.
+            </remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.AlpacaDeviceNumber">
+            <summary>
+            Alpaca API device number
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.ServiceType">
+            <summary>
+            HTTP or HTTP service type
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.UniqueId">
+            <summary>
+            ASCOM device unique ID
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.HostName">
+            <summary>
+            The ASCOM device's DNS host name, if available, otherwise its IP address. IPv6 addresses will be in canonical form.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.IpAddress">
+            <summary>
+            The ASCOM device's IP address. IPv6 addresses will be in canonical form.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.IpPort">
+            <summary>
+            The ASCOM device's IP port.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.InterfaceVersion">
+            <summary>
+            Supported Alpaca interface version
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.ServerName">
+            <summary>
+            The Alpaca device's configured name
+            </summary>
+            <returns>String server name</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.Manufacturer">
+            <summary>
+            The device manufacturer's name
+            </summary>
+            <returns>String manufacturer name</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.ManufacturerVersion">
+            <summary>
+            The device's version as set by the manufacturer
+            </summary>
+            <returns>String server version</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.Location">
+            <summary>
+            The Alpaca device's configured location
+            </summary>
+            <returns>String location</returns>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.NonAscomDeviceType">
+            <summary>
+            Device type if this is not one of the ASCOM device types such as Telescope, Camera etc.
+            </summary>
+            <remarks>
+            This field will only be populated when the supplied device type is not one of the recognised ASCOM types such as Telescope or Camera. 
+            When this field is populated the <see cref="P:ASCOM.Alpaca.Discovery.AscomDevice.AscomDeviceType"/> property will return <see langword="null" />.
+            </remarks>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.AscomDevice.IPEndPoint">
+            <summary>
+            Alpaca device IP endpoint
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.BroadcastResponse">
+            <summary>
+            Response to an Alpaca discovery broadcast.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.BroadcastResponse.#ctor(System.Net.IPEndPoint,System.Byte[])">
+            <summary>
+            Create a new instance of the BroadcastResponse class using the provided IP endpoint and response bytes
+            </summary>
+            <param name="iPEndpoint">IP endpoint of the device.</param>
+            <param name="response">Device's response as a byte array.</param>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.BroadcastResponse.IPEndpoint">
+            <summary>
+            IP address of the responding device
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.BroadcastResponse.Response">
+            <summary>
+            Response in the returned UDP packet.
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.DnsResponse">
+            <summary>
+            Define the state object for the callback. 
+            Use hostName to correlate calls with the proper result.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.DnsResponse.#ctor">
+            <summary>
+            Initialise the class with a new ManualResetEvent
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.DnsResponse.IpHostEntry">
+            <summary>
+            The IPHostEntry for the discovered Alpaca device
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.DnsResponse.CallComplete">
+            <summary>
+            The discovery's ManualResetEvent
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.DnsResponse.HostName">
+            <summary>
+            The Alpaca device's host name
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.DnsResponse.Aliases">
+            <summary>
+            The device's aliases
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.DnsResponse.AddressList">
+            <summary>
+            The list of IP addresses presented by the discovered device
+            </summary>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.Finder">
+            <summary>
+            Initiates a discovery and raises events as devices respond
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.#ctor">
+            <summary>
+            Creates a Alpaca Finder object that sends out a search request for Alpaca devices
+            The results will be sent to the callback and stored in the cache
+            Calling search and concatenating the results reduces the chance that a UDP packet is lost
+            This may require firewall access
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.#ctor(System.Boolean,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Creates a Alpaca Finder object that sends out a search request for Alpaca devices
+            The results will be sent to the callback and stored in the cache
+            Calling search and concatenating the results reduces the chance that a UDP packet is lost
+            This may require firewall access
+            </summary>
+            <param name="strictCasing">Enforce correct casing of the port variable name in the Alpaca JSON discovery response.</param>
+            <param name="logger">An ILogger instance (or null) into which the Finder will log.</param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.Dispose(System.Boolean)">
+            <summary>
+            Internal Dispose call used by the CLR, do not call directly, use the <see cref="M:ASCOM.Alpaca.Discovery.Finder.Dispose"/> method instead.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.Dispose">
+            <summary>
+            DIspose of the Finder
+            </summary>
+        </member>
+        <member name="E:ASCOM.Alpaca.Discovery.Finder.ResponseReceivedEvent">
+            <summary>
+            Event raised each time a discovery response is received from a device
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.Search(System.Boolean,System.Boolean)">
+            <summary>
+            Resends the search request on the default discovery port
+            </summary>
+            <param name="IPv4">Set true to discover IPv4 Alpaca devices</param>
+            <param name="IPv6">Set true to discover IPv6 Alpaca devices</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.Search(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Resends the search request on the specified discovery port
+            </summary>
+            <param name="discoveryPort">IP port number on which to send the IPv4 discovery broadcast / IPv6 multicast</param>
+            <param name="IPv4">Set true to discover IPv4 Alpaca devices</param>
+            <param name="IPv6">Set true to discover IPv6 Alpaca devices</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.Finder.CachedEndpoints">
+            <summary>
+            List of IP Endpoints that returned valid Alpaca discovery responses
+            </summary>
+        </member>
+        <member name="P:ASCOM.Alpaca.Discovery.Finder.BroadcastResponses">
+            <summary>
+            List of all responses to the broadcasts
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.ClearCache">
+            <summary>
+            Clears the cached IP Endpoints in CachedEndpoints
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.SearchIPv4">
+            <summary>
+            Send out discovery message on each IPv4 broadcast address
+            This dual targets NetStandard 2.0 and NetFX 3.5 so no Async Await
+            Broadcasts on each adapters address as per Windows / Linux documentation
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.SearchIPv6">
+            <summary>
+            Send out discovery message on the IPv6 multicast group
+            This dual targets NetStandard 2.0 and NetFX 3.5 so no Async Await
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.SendDiscoveryMessage(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Send out the IPv4 and IPv6 messages on the specified discovery port
+            </summary>
+        </member>
+        <member name="M:ASCOM.Alpaca.Discovery.Finder.LogMessage(System.String,System.String)">
+            <summary>
+            Format log messages according to thread number in order to make then easier to follow in the log
+            </summary>
+            <param name="method">Method name</param>
+            <param name="message">Message text</param>
+        </member>
+        <member name="T:ASCOM.Alpaca.Discovery.NamespaceDoc">
+            <summary>
+            Tools providing Alpaca Discovery capabilities for Alpaca clients and devices. This namespace is delivered in NuGet package: <b>ASCOM.Alpaca.Components</b> 
+            except for the <b>Responder</b> class, which is delivered in NuGet package: <b>ASCOM.Alpaca.Device</b> to minimise its footprint.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1799 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASCOM.Com</name>
+    </assembly>
+    <members>
+        <member name="T:ASCOM.Com.DriverAccess.ASCOMDevice">
+            <summary>
+            Base class for COM DriverAccess devices
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.#ctor(System.String)">
+            <summary>
+            Create a new instance
+            </summary>
+            <param name="progid">ProgId of the driver</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.Connected">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.DriverInfo">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.InterfaceVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.SupportedActions">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.Action(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.CommandBlind(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.CommandBool(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.CommandString(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.SetupDialog">
+            <summary>
+            Show the device set-up dialog
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.Connect">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ASCOMDevice.Disconnect">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.Connecting">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ASCOMDevice.DeviceState">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.DynamicAccess">
+            <summary>
+            Dynamically manipulate a COM object's members
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.DynamicAccess.#ctor(System.String)">
+            <summary>
+            Initialise the class, binding it to the specified ProgID.
+            </summary>
+            <param name="ProgID">ProgiId of the driver</param>
+            <exception cref="T:System.Exception">If unable to load the specified driver</exception>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.DynamicAccess.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)">
+            <summary>
+            Call a COM object method.
+            </summary>
+            <param name="binder">COM object member reference</param>
+            <param name="args">Method arguments</param>
+            <param name="result">Method result.</param>
+            <returns>True if the call is successful, otherwise false</returns>
+            <exception cref="T:ASCOM.NotImplementedException">If the specified member is not implemented by the driver</exception>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.DynamicAccess.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)">
+            <summary>
+            Set a COM object property value
+            </summary>
+            <param name="binder">COM object member reference</param>
+            <param name="value">Method arguments</param>
+            <returns>True if the call is successful, otherwise false</returns>
+            <exception cref="T:ASCOM.NotImplementedException">If the specified member is not implemented by the driver</exception>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.DynamicAccess.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>
+            Get a COM object property value.
+            </summary>
+            <param name="binder">COM object member reference</param>
+            <param name="result">Response from the member</param>
+            <returns>True if the call is successful, otherwise false</returns>
+            <exception cref="T:ASCOM.NotImplementedException">If the specified member is not implemented by the driver</exception>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.DynamicAccess.CheckDotNetExceptions(System.String,System.Exception)">
+            <summary>
+            Checks for ASCOM exceptions returned as inner exceptions of TargetInvocationException. When new ASCOM exceptions are created
+            they must be added to this method. They will then be used in all three cases of Property Get, Property Set and Method call.
+            </summary>
+            <param name="memberName">The name of the invoked member</param>
+            <param name="e">The thrown TargetInvocationException including the inner exception</param>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Camera">
+            <summary>
+            Camera device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.Cameras">
+            <summary>
+            Return a list of all Cameras registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CameraDeviceState">
+            <summary>
+            Camera device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Camera.#ctor(System.String)">
+            <summary>
+            Initialise Camera device
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Camera.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Camera device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.DriverInfo">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.BinX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.BinY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CameraState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CameraXSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CameraYSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanAbortExposure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanAsymmetricBin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanGetCoolerPower">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanPulseGuide">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanSetCCDTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanStopExposure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CCDTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CoolerOn">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CoolerPower">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ElectronsPerADU">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.FullWellCapacity">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.HasShutter">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.HeatSinkTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ImageArray">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ImageArrayVariant">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ImageReady">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.IsPulseGuiding">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.LastExposureDuration">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.LastExposureStartTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.MaxADU">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.MaxBinX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.MaxBinY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.NumX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.NumY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.PixelSizeX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.PixelSizeY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.SetCCDTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.StartX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.StartY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.BayerOffsetX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.BayerOffsetY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.CanFastReadout">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ExposureMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ExposureMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ExposureResolution">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.FastReadout">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.Gain">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.GainMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.GainMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.Gains">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.PercentCompleted">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ReadoutMode">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.ReadoutModes">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.SensorName">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.SensorType">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.Offset">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.OffsetMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.OffsetMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.Offsets">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Camera.SubExposureDuration">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Camera.AbortExposure">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Camera.PulseGuide(ASCOM.Common.DeviceInterfaces.GuideDirection,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Camera.StartExposure(System.Double,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Camera.StopExposure">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.CoverCalibrator">
+            <summary>
+            CoverCalibrator device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.CoverCalibrators">
+            <summary>
+            Return a list of all CoverCalibrator devices registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.CoverCalibratorState">
+            <summary>
+            CoverCalibrator device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.#ctor(System.String)">
+            <summary>
+            Initialise CoverClaibrator device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise CoverCalibrator device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.CoverState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.CalibratorState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.Brightness">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.MaxBrightness">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.OpenCover">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.CloseCover">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.HaltCover">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.CalibratorOn(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.CoverCalibrator.CalibratorOff">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.CalibratorChanging">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.CoverCalibrator.CoverMoving">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Dome">
+            <summary>
+            Dome device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.Domes">
+            <summary>
+            Return a list of all Dome devices registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.DomeState">
+            <summary>
+            Dome device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.#ctor(System.String)">
+            <summary>
+            Initialise Dome device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Dome device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.Altitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.AtHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.AtPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.Azimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanFindHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanSetAltitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanSetAzimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanSetPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanSetShutter">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanSlave">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.CanSyncAzimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.ShutterStatus">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.Slaved">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Dome.Slewing">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.AbortSlew">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.CloseShutter">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.FindHome">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.OpenShutter">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.Park">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.SetPark">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.SlewToAltitude(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.SlewToAzimuth(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Dome.SyncToAzimuth(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.FilterWheel">
+            <summary>
+            FilterWheel device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.FilterWheels">
+            <summary>
+            Return a list of all FilterWheels registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.FilterWheelState">
+            <summary>
+            FilterWheel device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.FilterWheel.#ctor(System.String)">
+            <summary>
+            Initialise FilterWheel device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.FilterWheel.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise FilterWheel device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.DriverInfo">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.FocusOffsets">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.Names">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.FilterWheel.Position">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Focuser">
+            <summary>
+            Focuser device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Focusers">
+            <summary>
+            Return a list of all Focusers registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.FocuserState">
+            <summary>
+            Focuser device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Focuser.#ctor(System.String)">
+            <summary>
+            Initialise Focuser device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Focuser.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Focuser device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Connected">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.DriverInfo">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Absolute">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.IsMoving">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.MaxIncrement">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.MaxStep">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Position">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.StepSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.TempComp">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.TempCompAvailable">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Focuser.Temperature">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Focuser.Halt">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Focuser.Move(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.NamespaceDoc">
+            <summary>
+            Client toolkit providing a standard interface to COM devices.
+            </summary>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.ObservingConditions">
+            <summary>
+            ObservingConditions device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.ObservingConditionDrivers">
+            <summary>
+            Return a list of all ObservingConditions devices registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.ObservingConditionsState">
+            <summary>
+            ObservingConditions device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ObservingConditions.#ctor(System.String)">
+            <summary>
+            Initialise ObservingConditions device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ObservingConditions.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise ObservingConditions device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.AveragePeriod">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.CloudCover">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.DewPoint">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.Humidity">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.Pressure">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.RainRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.SkyBrightness">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.SkyQuality">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.StarFWHM">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.SkyTemperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.Temperature">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.WindDirection">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.WindGust">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.ObservingConditions.WindSpeed">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ObservingConditions.TimeSinceLastUpdate(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ObservingConditions.SensorDescription(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.ObservingConditions.Refresh">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Rotator">
+            <summary>
+            Rotator device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.Rotators">
+            <summary>
+            Return a list of all Rotators registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.RotatorState">
+            <summary>
+            Rotator device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.#ctor(System.String)">
+            <summary>
+            Initialise Rotator device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Rotator device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.DriverInfo">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.DriverVersion">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.CanReverse">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.IsMoving">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.Position">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.Reverse">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.StepSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.TargetPosition">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Rotator.MechanicalPosition">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.Halt">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.Move(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.MoveAbsolute(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.MoveMechanical(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Rotator.Sync(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.SafetyMonitor">
+            <summary>
+            SafetyMonitor device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.SafetyMonitor.SafetyMonitors">
+            <summary>
+            Return a list of all SafetyMonitors registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.SafetyMonitor.SafetyMonitorState">
+            <summary>
+            SafetyMonitor device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.SafetyMonitor.#ctor(System.String)">
+            <summary>
+            Initialise SafetyMonitor device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.SafetyMonitor.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise SafetyMonitor device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.SafetyMonitor.IsSafe">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Switch">
+            <summary>
+            Switch device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Switch.Switches">
+            <summary>
+            Return a list of all Switches registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.#ctor(System.String)">
+            <summary>
+            Initialise Switch device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Switch device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Switch.MaxSwitch">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.GetSwitchName(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.SetSwitchName(System.Int16,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.GetSwitchDescription(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.CanWrite(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.GetSwitch(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.SetSwitch(System.Int16,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.MaxSwitchValue(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.MinSwitchValue(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.SwitchStep(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.GetSwitchValue(System.Int16)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.SetSwitchValue(System.Int16,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.SetAsync(System.Int16,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.SetAsyncValue(System.Int16,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.CanAsync(System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.StateChangeComplete(System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Switch.CancelAsync(System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Telescope">
+            <summary>
+            Telescope device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.Telescopes">
+            <summary>
+            Return a list of all Telescopes registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.TelescopeState">
+            <summary>
+            State response from the device
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.#ctor(System.String)">
+            <summary>
+            Initialise Telescope device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Telescope device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SupportedActions">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.AlignmentMode">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.Altitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.ApertureArea">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.ApertureDiameter">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.AtHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.AtPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.Azimuth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanFindHome">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanPulseGuide">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSetDeclinationRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSetGuideRates">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSetPark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSetPierSide">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSetRightAscensionRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSetTracking">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSlew">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSlewAltAz">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSlewAltAzAsync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSlewAsync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSync">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanSyncAltAz">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.CanUnpark">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.Declination">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.DeclinationRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.DoesRefraction">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.EquatorialSystem">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.FocalLength">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.GuideRateDeclination">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.GuideRateRightAscension">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.IsPulseGuiding">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.RightAscension">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.RightAscensionRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SideOfPier">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SiderealTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SiteElevation">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SiteLatitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SiteLongitude">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.Slewing">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.SlewSettleTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.TargetDeclination">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.TargetRightAscension">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.Tracking">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.TrackingRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.TrackingRates">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Telescope.UTCDate">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.AbortSlew">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.AxisRates(ASCOM.Common.DeviceInterfaces.TelescopeAxis)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.CanMoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.DestinationSideOfPier(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.FindHome">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.Park">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.PulseGuide(ASCOM.Common.DeviceInterfaces.GuideDirection,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SetPark">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SlewToAltAz(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SlewToAltAzAsync(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SlewToCoordinates(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SlewToCoordinatesAsync(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SlewToTarget">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SlewToTargetAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SyncToAltAz(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SyncToCoordinates(System.Double,System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.SyncToTarget">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Telescope.Unpark">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.TrackingRates">
+            <summary>
+            Returns a collection of supported DriveRate values that describe the permissible values of the TrackingRate property for this telescope type.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.#ctor">
+            <summary>
+            Initialiser
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.Add(ASCOM.Common.DeviceInterfaces.DriveRate)">
+            <summary>
+            Add a new drive rate to the collection
+            </summary>
+            <param name="rate">TrackingRate to add to the TrackingRates collection</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.TrackingRates.Count">
+            <summary>
+            Number of DriveRates supported by the Telescope
+            </summary>
+            <value>Number of DriveRates supported by the Telescope</value>
+            <returns>Integer count</returns>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.GetEnumerator">
+            <summary>
+            Returns an enumerator for the collection
+            </summary>
+            <returns>An enumerator</returns>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.TrackingRates.Item(System.Int32)">
+            <summary>
+            Returns a specified item from the collection
+            </summary>
+            <param name="index">Number of the item to return</param>
+            <value>A collection of supported DriveRate values that describe the permissible values of the TrackingRate property for this telescope type.</value>
+            <returns>Returns a collection of supported DriveRate values</returns>
+            <remarks>This is only used by telescope interface versions 2 and 3</remarks>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.MoveNext">
+            <summary>
+            Move to the next member in the collection
+            </summary>
+            <returns>True if the enumerator was successfully advanced to the next element; False if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.Reset">
+            <summary>
+            Reset the enumerator to the start of the collection
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.TrackingRates.Current">
+            <summary>
+            Return the current member of the collection
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.Dispose">
+            <summary>
+            Dispose of the TrackingRates object
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.TrackingRates.Dispose(System.Boolean)">
+            <summary>
+            method used by the CLR, do not call this method, instead use <see cref="M:ASCOM.Com.DriverAccess.TrackingRates.Dispose"/>.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.AxisRates">
+            <summary>
+            A collection of rates at which the telescope may be moved about the specified axis by the <see cref="M:ASCOM.Common.DeviceInterfaces.ITelescopeV3.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)" /> method.
+            This is only used if the telescope interface version is 2 or 3
+            </summary>
+            <remarks><para>See the description of the <see cref="M:ASCOM.Common.DeviceInterfaces.ITelescopeV3.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)" /> method for more information.</para>
+            <para>This method must return an empty collection if <see cref="M:ASCOM.Common.DeviceInterfaces.ITelescopeV3.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)" /> is not supported.</para>
+            <para>The values used in <see cref="T:ASCOM.Common.DeviceInterfaces.IRate" /> members must be non-negative; forward and backward motion is achieved by the application
+            applying an appropriate sign to the returned <see cref="T:ASCOM.Common.DeviceInterfaces.IRate" /> values in the <see cref="M:ASCOM.Common.DeviceInterfaces.ITelescopeV3.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)" /> command.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.#ctor">
+            <summary>
+            Initialise an AxisRates object
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.Add(System.Double,System.Double)">
+            <summary>
+            Add a new member to the AxisRates collection
+            </summary>
+            <param name="Minimum">Minimum movement rate.</param>
+            <param name="Maximum">Maximum movement rate.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.AxisRates.Count">
+            <summary>
+            Number of AxisRate items in the returned collection
+            </summary>
+            <value>Number of items</value>
+            <returns>Integer number of items</returns>
+            <remarks>Number of AxisRate items in the AxisRates collection</remarks>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.GetEnumerator">
+            <summary>
+            Returns an enumerator for the AxisRates collection.
+            </summary>
+            <returns>An enumerator for the AxisRates collection</returns>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.AxisRates.Item(System.Int32)">
+            <summary>
+            Return information about the rates at which the telescope may be moved about the specified axis by the <see cref="M:ASCOM.Common.DeviceInterfaces.ITelescopeV3.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)" /> method.
+            </summary>
+            <param name="index">The axis about which rate information is desired</param>
+            <value>Collection of Rate objects describing the supported rates of motion that can be supplied to the <see cref="M:ASCOM.Common.DeviceInterfaces.ITelescopeV3.MoveAxis(ASCOM.Common.DeviceInterfaces.TelescopeAxis,System.Double)" /> method for the specified axis.</value>
+            <returns>Collection of Rate objects </returns>
+            <remarks><para>The (symbolic) values for Index (<see cref="T:ASCOM.Common.DeviceInterfaces.TelescopeAxis" />) are:</para>
+            <bl>
+            <li><see cref="F:ASCOM.Common.DeviceInterfaces.TelescopeAxis.Primary"/> 0 Primary axis (e.g., Hour Angle or Azimuth)</li>
+            <li><see cref="F:ASCOM.Common.DeviceInterfaces.TelescopeAxis.Secondary"/> 1 Secondary axis (e.g., Declination or Altitude)</li>
+            <li><see cref="F:ASCOM.Common.DeviceInterfaces.TelescopeAxis.Tertiary"/> 2 Tertiary axis (e.g. imager rotator/de-rotator)</li> 
+            </bl>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.Dispose">
+            <summary>
+            DIspose of the AxisRates object
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.Dispose(System.Boolean)">
+            <summary>
+            method used by the CLR, do not call this method, instead use <see cref="M:ASCOM.Com.DriverAccess.AxisRates.Dispose"/>.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.MoveNext">
+            <summary>
+            Move to the next member of the collection.
+            </summary>
+            <returns>True if the enumerator was successfully advanced to the next element; False if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.AxisRates.Reset">
+            <summary>
+            Reset the enumerator to the first member of the collection
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.AxisRates.Current">
+            <summary>
+            Return the current member of the AxisRates collection.
+            </summary>
+        </member>
+        <member name="T:ASCOM.Com.DriverAccess.Video">
+            <summary>
+            Video device class
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Videos">
+            <summary>
+            Return a list of all Video devices registered in the ASCOM Profile
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.VideoState">
+            <summary>
+            VideoState device state
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Video.#ctor(System.String)">
+            <summary>
+            Initialise Video device
+            </summary>
+            <param name="ProgID">COM ProgID of the device.</param>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Video.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Initialise Video device with a debug logger
+            </summary>
+            <param name="ProgID">ProgID of the driver</param>
+            <param name="logger">Logger instance to receive debug information.</param>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.BitDepth">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.CameraState">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.CanConfigureDeviceProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.ExposureMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.ExposureMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.FrameRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Gain">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.GainMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.GainMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Gains">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Gamma">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.GammaMax">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.GammaMin">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Gammas">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Height">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.IntegrationRate">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.LastVideoFrame">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.PixelSizeX">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.PixelSizeY">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.SensorName">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.SensorType">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.SupportedIntegrationRates">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.VideoCaptureDeviceName">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.VideoCodec">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.VideoFileFormat">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.VideoFramesBufferSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:ASCOM.Com.DriverAccess.Video.Width">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Video.ConfigureDeviceProperties">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Video.StartRecordingVideoFile(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ASCOM.Com.DriverAccess.Video.StopRecordingVideoFile">
+            <inheritdoc/>
+        </member>
+        <member name="T:ASCOM.Com.Chooser">
+            <summary>
+            The Chooser provides a way for your application to let your user select which device to use.
+            </summary>
+            <remarks>
+            This component is a light wrapper for the Platform Chooser COM component. In time it will be re-written as a native .NET Core component
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.#ctor">
+            <summary>
+            Creates a new Chooser object with no logger
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.#ctor(ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Creates a new Chooser object with a logger
+            </summary>
+            <param name="logger">Optional ILogger object to which operational messages will be sent by the Chooser component.</param>
+            <exception cref="T:ASCOM.InvalidOperationException"></exception>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.Finalize">
+            <summary>
+            Chooser destructor, called by the runtime during garbage collection
+            </summary>
+            <remarks>This method ensures that Dispose is called during garbage collection even if it has not been called it from the application.</remarks>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.Dispose(System.Boolean)">
+            <summary>
+            Dispose of this components Chooser object.
+            </summary>
+            <param name="disposing">True if called by the application, false if called by the garbage collector.</param>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.Dispose">
+            <summary>
+            Release the Chooser component's Chooser COM object
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.Chooser.DeviceType">
+            <summary>
+            The type of device from which the Chooser will select a driver. (default = "Telescope") 
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.Choose">
+            <summary>
+            Select the ASCOM driver to use without pre-selecting one in the drop-down list 
+            </summary>
+            <returns>The ProgID of the selected device or an empty string if no device was chosen</returns>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.Choose(System.String)">
+            <summary>
+            Display the Chooser dialogue enabling the user to select a driver
+            </summary>
+            <param name="progId">The driver ProgId to pre-select in the Chooser drop-down list</param>
+            <returns>The ProgID of the selected device or an empty string if no device was chosen</returns>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.CheckOK(System.String)">
+            <summary>
+            Validate that this object has not been disposed. If this component has been disposed, throw an InvalidOperationException.
+            </summary>
+            <param name="method">Name of the called method</param>
+            <exception cref="T:ASCOM.InvalidOperationException">When the Chooser has already been disposed.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Chooser.LogMessage(ASCOM.Common.Interfaces.LogLevel,System.String,System.String)">
+            <summary>
+            Log a message, dealing with the possibility that the logger is null
+            </summary>
+            <param name="level">Log level</param>
+            <param name="method">Calling method name</param>
+            <param name="message">Message</param>
+        </member>
+        <member name="T:ASCOM.Com.NamespaceDoc">
+            <summary>
+            Components supporting Windows COM clients and drivers
+            </summary>
+        </member>
+        <member name="T:ASCOM.Com.PlatformUtilities">
+            <summary>
+            Utilities relevant to Windows / COM Driver / ASCOM Platform development
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.#cctor">
+            <summary>
+            initialise the internal Platform version variable if possible
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.SetLogger(ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Set a logger instance that will receive runtime diagnostic information
+            </summary>
+            <param name="logger">Optional ILogger instance to which operational / debug messages will be sent.</param>
+        </member>
+        <member name="P:ASCOM.Com.PlatformUtilities.PlatformVersion">
+            <summary>
+            Current Platform version in Major.Minor form
+            </summary>
+            <returns>Current Platform version in Major.Minor form</returns>
+            <remarks>Please note that this function returns the version number in the invariant culture, which means that the MAJOR.MINOR separator is always the point
+            character regardless of which character is used as the decimal separator in the application's locale.
+            <para>If you wish to convert the Platform version into a Double value, you should parse the string using the invariant culture as follows:</para>
+            <code>
+            double platformVersion = Double.Parse(PlatformUtilities.PlatformVersion, CultureInfo.InvariantCulture)
+            </code>
+            <para>If you just wish to test whether the platform is greater than a particular level,
+            you can use the <see cref="M:ASCOM.Com.PlatformUtilities.IsMinimumRequiredVersion(System.Int32,System.Int32,System.Int32,System.Int32)">IsMinimumRequiredVersion</see> method.</para>
+            </remarks>
+        </member>
+        <member name="P:ASCOM.Com.PlatformUtilities.MajorVersion">
+            <summary>
+            Return the ASCOM Platform's major version number
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.PlatformUtilities.MinorVersion">
+            <summary>
+            Return the ASCOM Platform's minor version number
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.PlatformUtilities.ServicePack">
+            <summary>
+            Return the ASCOM Platform's Service pack number
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.PlatformUtilities.BuildNumber">
+            <summary>
+            Return the ASCOM Platform's build number
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.IsMinimumRequiredVersion(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Tests whether the current platform version is at least equal to the supplied major and minor version numbers, returns false if this is not the case
+            </summary>
+            <param name="requiredMajorVersion">The required major version number</param>
+            <param name="requiredMinorVersion">The required minor version number. Use 0 if any minor version is acceptable.</param>
+            <param name="requiredServicePack">The required service pack number. Use 0 if any service pack is acceptable.</param>
+            <param name="requiredBuild">The required build number. Use 0 if any build number is acceptable</param>
+            <exception cref="T:ASCOM.InvalidValueException">When any parameter value is outside the range implemented by the Platform.</exception>
+            <returns>True if the current platform version equals or exceeds the version specified.</returns>
+            <remarks>This function provides a simple way to test for a minimum platform level.
+            If for example, your application requires at least platform version 6.6.1.0 then you can use 
+            code such as this to make a test and display information as appropriate.
+            <code >
+            if(!PlatformUtilities.IsMinimumRequiredVersion(6, 6, 1, 0)
+            {
+               // Abort, throw an exception, return an error etc. as appropriate.
+            }
+            </code>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.IsPlatformInstalled">
+            <summary>
+            Determine whether the ASCOM Platform is installed.
+            </summary>
+            <returns>True if the ASCOM Platform is installed, otherwise false.</returns>
+            <remarks>Assumes that the Platform is not installed if we cannot determine the version number.</remarks>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.CreateDynamicDriver(ASCOM.Common.DeviceTypes,System.Int32,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Create an Alpaca Dynamic Driver to present an Alpaca device as a COM device. (Platform 6.5 or later)
+            </summary>
+            <param name="deviceType">ASCOM device type</param>
+            <param name="deviceNumber">ALpaca device number of this device</param>
+            <param name="description">Text description of the Alpaca device that will appear in the Chooser.</param>
+            <param name="hostName">Host-name or IP address of the Alpaca device</param>
+            <param name="ipPort">IP port of the Alpaca device</param>
+            <param name="deviceUniqueId">The Alpaca device's unique ID.</param>
+            <exception cref="T:ASCOM.InvalidOperationException">If the installed Platform version is earlier that 6.5.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">When supplied parameters are outside valid ranges.</exception>
+            <returns>The COM ProgID of the created dynamic driver.</returns>
+            <remarks>
+            The Dynamic driver functionality was introduced in Platform 6.5, consequently, this method will throw an InvalidOperationException if invoked on previous platforms.
+            <para>
+            Microsoft security requires that the user provides Administrator level access in order to create and register the dynamic driver. The Platform's Dynamic Client Manager 
+            will trigger the UAC request process automatically and will, or will not, run depending on whether permission is granted. As an application developer, you are not directly involved in 
+            this automatic process. However, you should make your customers aware that the security dialogue will appear when creating the driver, and check that the modal UAC dialogue does not disrupt your application 
+            or UI while displayed.
+            /// </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.OSBuildName">
+            <summary>
+            Returns the Microsoft OS build name based on the build number stored in the Windows registry
+            </summary>
+            <remarks>
+            This function only works on Microsoft operating systems. If you need this function on a non-Windows OS, use <see cref="M:ASCOM.Com.PlatformUtilities.OSBuildName(System.Int32)"/> instead and supply the build number as a parameter.
+            </remarks>
+            <returns>The descriptive name of the operating system e.g. Windows 11 (24H2).</returns>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.OSBuildName(System.Int32)">
+            <summary>
+            Returns the Microsoft Windows OS build name based on the supplied build number
+            </summary>
+            <param name="buildNumber">The integer Windows build number for which a descriptive OS name is required.</param>
+            <remarks></remarks>
+            <returns>The descriptive name of the operating system e.g. Windows 11 (24H2).</returns>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.RunDynamicClientManager(System.String)">
+            <summary>
+            Run the Alpaca dynamic client manager application with the supplied parameters
+            </summary>
+            <param name="parameterString">Parameter string to pass to the application</param>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.DriverGeneration_Complete(System.Object,System.EventArgs)">
+            <summary>
+            Driver generation completion event handler
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.CheckPlatformVersionIsOk">
+            <summary>
+            Test whether the Platform version can be determined.
+            </summary>
+            <exception cref="T:ASCOM.InvalidOperationException">When the Platform version cannot be determined.</exception>
+        </member>
+        <member name="M:ASCOM.Com.PlatformUtilities.LogMessage(System.String,System.String)">
+            <summary>
+            Log a message to the screen, adding the current managed thread ID
+            </summary>
+            <param name="methodName"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:ASCOM.Com.ASCOMRegistration">
+            <summary>
+            A class that represents the registration data for a driver that is stored in the ASCOM Register
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.ASCOMRegistration.ProgID">
+            <summary>
+            The ProgID of the driver used to create an instance of the COM Object
+            </summary>
+        </member>
+        <member name="P:ASCOM.Com.ASCOMRegistration.Name">
+            <summary>
+            The Name of the driver. Often used to implement a chooser. This is a human readable value.
+            </summary>
+        </member>
+        <member name="T:ASCOM.Com.Profile">
+            <summary>
+            ASCOM Profile utilities
+            </summary>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetDrivers(ASCOM.Common.DeviceTypes)">
+            <summary>
+            Searches the ASCOM Registry for all drivers of a specified driver type
+            </summary>
+            <param name="deviceType">The driver type to search for as a DriverType.</param>
+            <returns>Returns a list of found ASCOM Devices, this includes ProgID and the friendly Name</returns>
+        </member>
+        <member name="M:ASCOM.Com.Profile.Register(ASCOM.Common.DeviceTypes,System.String,System.String)">
+            <summary>
+            Register an ASCOM device in the profile
+            </summary>
+            <param name="deviceType">ASCOM device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the driver</param>
+            <param name="description">Device description that will appear in the Chooser list.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device is not a valid ASCOM device type.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.UnRegister(ASCOM.Common.DeviceTypes,System.String)">
+            <summary>
+            Unregister an ASCOM device from the Profile.
+            </summary>
+            <param name="deviceType">ASCOM device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the driver</param>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device type is not a valid ASCOM device type.</exception>
+            <remarks>This method will succeed (no exception will be thrown) regardless of whether or not the device is registered.</remarks>
+        </member>
+        <member name="M:ASCOM.Com.Profile.IsRegistered(ASCOM.Common.DeviceTypes,System.String)">
+            <summary>
+            Tests whether a given device is registered in the ASCOM Profile.
+            </summary>
+            <param name="deviceType">ASCOM device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the driver</param>
+            <returns><see langword="true"/> if the device is registered, otherwise returns <see langword="false"/>.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device type is not a valid ASCOM device type.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetValue(ASCOM.Common.DeviceTypes,System.String,System.String,System.String)">
+            <summary>
+            Reads a value from the root of the device's registry Profile.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="valueName">Name of this parameter.</param>
+            <param name="defaultValue">Default value to be returned if this parameter has not yet been set. The default value will also be written to the Profile.</param>
+            <returns>String value of the specified parameter.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device is not registered or is not a valid ASCOM device type.</exception>
+            <exception cref="T:ASCOM.ValueNotSetException">The requested parameter has not been set and no default value was provided.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetValue(ASCOM.Common.DeviceTypes,System.String,System.String,System.String,System.String)">
+            <summary>
+            Reads a value from the given sub-key in the device's registry Profile.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="valueName">Name of this parameter.</param>
+            <param name="defaultValue">If the requested value does not exist, this value will be written to the profile and returned to the caller. Use null to indicate that there is no default value</param>
+            <param name="subKey">Name of the sub-key under which to read this value. Use null or empty string to write to the device's profile root.</param>
+            <returns>String value of the specified parameter.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device is not registered or is not a valid ASCOM device type.</exception>
+            <exception cref="T:ASCOM.ValueNotSetException">The requested parameter has not been set and the supplied default value is null.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetValues(ASCOM.Common.DeviceTypes,System.String)">
+            <summary>
+            Returns a dictionary of the named and unnamed values in the device's profile root. 
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <returns>Dictionary of name:value string pairs.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device is not registered or is not a valid ASCOM device type.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetValues(ASCOM.Common.DeviceTypes,System.String,System.String)">
+            <summary>
+            Returns a dictionary of the named and unnamed values under the given sub-key from the device's profile root. 
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="subKey">Name of the sub-key from which to read the values.</param>
+            <returns>Dictionary of name:value string pairs.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device is not registered or is not a valid ASCOM device type.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the sub-key only contains white space.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetSubKeys(ASCOM.Common.DeviceTypes,System.String)">
+            <summary>
+            Returns a list of the sub-keys under the profile root.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <returns>Dictionary of name:value string pairs.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If device type, progId or sub-key are null or invalid.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.GetSubKeys(ASCOM.Common.DeviceTypes,System.String,System.String)">
+            <summary>
+            Returns a list of the sub-keys under the given sub-key from the profile root. 
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="subKey">Name of the sub-key from which to read the sub-keys.</param>
+            <returns>Dictionary of name:value string pairs.</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the ASCOM device type or COM progId are null, empty or just contain white space.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the device is not registered or is not a valid ASCOM device type.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the sub-key only contains white space.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.SetValue(ASCOM.Common.DeviceTypes,System.String,System.String,System.String)">
+            <summary>
+            Set a value in the device's registry Profile.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="valueName">Name of this parameter.</param>
+            <param name="value">Value to be set.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If device type, progId, name, value or sub-key are null or invalid.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.SetValue(ASCOM.Common.DeviceTypes,System.String,System.String,System.String,System.String)">
+            <summary>
+            Set a value in the device's registry Profile.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="valueName">Name of this parameter.</param>
+            <param name="value">Value to be set.</param>
+            <param name="subkey">Name of the sub-key under which to place this value.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If device type, progId, name or value are null or invalid.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the sub-key only contains white space.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.DeleteValue(ASCOM.Common.DeviceTypes,System.String,System.String)">
+            <summary>
+            Deletes a value from the root of the device's registry Profile.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="valueName">Name of this parameter.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If device type, progId, name, value or sub-key are null or invalid.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.DeleteValue(ASCOM.Common.DeviceTypes,System.String,System.String,System.String)">
+            <summary>
+            Deletes a value from the given sub-key in the device's registry Profile.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="valueName">Name of this parameter.</param>
+            <param name="subKey">Name of the sub-key under which to read this value.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If device type, progId, name or value are null or invalid.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the sub-key only contains white space.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.CreateSubKey(ASCOM.Common.DeviceTypes,System.String,System.String)">
+            <summary>
+            Creates a sub-key under the device's Profile root. Nested sub-keys can be created by separating levels with "\" characters in the sub-key string.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="subKey">Name of the sub-key to create based from the device's profile root.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If device type or progId are null or invalid.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the sub-key only contains white space.</exception>
+            <exception cref="T:ASCOM.InvalidOperationException">If the Device's Profile root key cannot be opened for writing.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.DeleteSubKey(ASCOM.Common.DeviceTypes,System.String,System.String)">
+            <summary>
+            Deletes a sub-key under the device's Profile root. Nested sub-keys can be deleted by separating levels with "\" characters in the sub-key string.
+            </summary>
+            <param name="deviceType">Device type e.g. Telescope.</param>
+            <param name="progId">COM ProgID of the device.</param>
+            <param name="subKey">Name of the sub-key to delete based on the device's Profile root.</param>
+            <exception cref="T:ASCOM.InvalidValueException">If device type or progId are null or invalid.</exception>
+            <exception cref="T:ASCOM.InvalidValueException">If the sub-key only contains white space.</exception>
+            <exception cref="T:ASCOM.InvalidOperationException">If the Device's Profile root key cannot be opened for writing.</exception>
+        </member>
+        <member name="M:ASCOM.Com.Profile.Dispose(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Com.Profile.Dispose">
+            <summary>
+            Dispose of the Profile object
+            </summary>
+            <remarks>This method is present to implement the IDisposable pattern, which enables the Profile component to be referenced within a Using statement.</remarks>
+        </member>
+    </members>
+</doc>

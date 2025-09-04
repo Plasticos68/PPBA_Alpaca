@@ -128,6 +128,7 @@
     <Reference Include="System.Collections.Immutable, Version=9.0.0.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.9.0.5\lib\net462\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Formats.Nrbf, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Formats.Nrbf.9.0.5\lib\net462\System.Formats.Nrbf.dll</HintPath>
@@ -183,8 +184,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alpaca\AlpacaServer.cs" />
-    <Compile Include="Alpaca\SwitchDevice.cs" />
+    <Compile Include="Servers\AlpacaServer.cs" />
+    <Compile Include="Devices\SwitchDevice.cs" />
     <Compile Include="AppConfig\Settings.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="PPBA\CommandMap.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="PPBA\PPBAController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servers\AlpacaDevice.cs" />
     <Compile Include="SetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,6 +242,11 @@
   <ItemGroup>
     <Content Include="ASCOMBoarderless.png" />
     <Content Include="CoPilot instructions.txt" />
+    <Content Include="structure.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Alpaca\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

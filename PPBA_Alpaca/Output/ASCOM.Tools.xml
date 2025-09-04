@@ -1,0 +1,766 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASCOM.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:ASCOM.Tools.ConsoleLogger">
+            <summary>
+            Simple logger to write to the console
+            </summary>
+        </member>
+        <member name="P:ASCOM.Tools.ConsoleLogger.LoggingLevel">
+            <summary>
+            Return the current logging level
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.ConsoleLogger.Log(ASCOM.Common.Interfaces.LogLevel,System.String)">
+            <summary>
+            Write a message to the console
+            </summary>
+            <param name="level">Logging level</param>
+            <param name="message">Message text</param>
+        </member>
+        <member name="M:ASCOM.Tools.ConsoleLogger.SetMinimumLoggingLevel(ASCOM.Common.Interfaces.LogLevel)">
+            <summary>
+            Minimum logging level to display.
+            </summary>
+            <param name="level">Required logging level.</param>
+        </member>
+        <member name="T:ASCOM.Tools.Unit">
+            <summary>
+            List of units that can be converted by the ConvertUnits method
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.metresPerSecond">
+            <summary>
+            Metres per second
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.milesPerHour">
+            <summary>
+            Miles per hour
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.knots">
+            <summary>
+            Knots
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.degreesCelsius">
+            <summary>
+            Degrees Celsius
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.degreesFarenheit">
+            <summary>
+            Degrees Fahrenheit
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.degreesKelvin">
+            <summary>
+            Degrees kelvin
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.hPa">
+            <summary>
+            Hecto pascals
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.mBar">
+            <summary>
+            Millibar
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.mmHg">
+            <summary>
+            Millimetres of mercury
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.inHg">
+            <summary>
+            Inches of mercury
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.mmPerHour">
+            <summary>
+            Millimetres per hour
+            </summary>
+        </member>
+        <member name="F:ASCOM.Tools.Unit.inPerHour">
+            <summary>
+            Inches per hour
+            </summary>
+        </member>
+        <member name="T:ASCOM.Tools.TraceLogger">
+             <summary>
+             Creates a log file for a driver or application. Uses a similar file name and internal format to the serial logger. Multiple logs can be created simultaneously if needed.
+             </summary>
+             <remarks>
+            <para>In automatic mode the file will be stored in an ASCOM folder within XP's My Documents folder or equivalent places
+             in other operating systems. Within the ASCOM folder will be a folder named Logs yyyy-mm-dd where yyyy, mm and dd are
+             today's year, month and day numbers.The trace file will appear within the day folder with the name
+             ASCOM.Identifier.hhmm.ssffff where hh, mm, ss and ffff are the current hour, minute, second and fraction of second
+             numbers at the time of file creation.
+             </para>
+             <para>Within the file the format of each line is hh:mm:ss.fff Identifier Message where hh, mm, ss and fff are the hour, minute, second
+             and fractional second at the time that the message was logged, Identifier is the supplied identifier (usually the subroutine,
+             function, property or method from which the message is sent) and Message is the message to be logged.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Create a new TraceLogger instance with the given filename and path
+            </summary>
+            <param name="logFileName">Name of the log file (without path) or null / empty string to use automatic file naming.</param>
+            <param name="logFilePath">Fully qualified path to the log file directory or null / empty string to use an automatically generated path.</param>
+            <param name="logFileType">A short name to identify the contents of the log (only used in automatic file names).</param>
+            <param name="enabled">Initial state of the trace logger - Enabled or Disabled.</param>
+            <remarks>Automatically generated directory names will be of the form: <c>"Documents\ASCOM\Logs {CurrentDate:yyyymmdd}"</c> on Windows and <c>"HOME/ASCOM/Logs{CurrentDate:yyyymmdd}"</c> on Linux
+            Automatically generated file names will be of the form: <c>"ASCOM.{LogFileType}.{CurrentTime:HHmm.ssfff}{1 or 2 Digits, usually 0}.txt"</c>.</remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.#ctor(System.String,System.Boolean,System.Int32,ASCOM.Common.Interfaces.LogLevel)">
+            <summary>
+            Create a new TraceLogger instance with automatic naming incorporating the supplied log file type
+            </summary>
+            <param name="logFileType">A short name to identify the contents of the log.</param>
+            <param name="enabled">Initial state of the trace logger - Enabled or Disabled.</param>
+            <param name="identifierWidth">Width of the identifier field in the log message (Optional parameter, default: 25)</param>
+            <param name="logLevel">Log level of the trace logger (Debug, Information, Warning etc.) (Optional parameter, default: LogLevel.Information)</param>
+            <remarks>Automatically generated directory names will be of the form: <c>"Documents\ASCOM\Logs {CurrentDate:yyyymmdd}"</c> on Windows and <c>"HOME/ASCOM/Logs{CurrentDate:yyyymmdd}"</c> on Linux
+            Automatically generated file names will be of the form: <c>"ASCOM.{LogFileType}.{CurrentTime:HHmm.ssfff}{1 or 2 Digits, usually 0}.txt"</c>.</remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.CommonInitialisation">
+            <summary>
+            Common code shared by all initialiser overloads
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.Dispose(System.Boolean)">
+            IDisposable
+            <summary>
+            Disposes of the TraceLogger object
+            </summary>
+            <param name="disposing">True if being disposed by the application, False if disposed by the finaliser.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.Dispose">
+            <summary>
+            Disposes of the TraceLogger object
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.LogMessage(System.String,System.String)">
+            <summary>
+            Write a message to the trace log
+            </summary>
+            <param name="identifier">Member name or function name.</param>
+            <param name="message">Message text</param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.BlankLine">
+            <summary>
+            Insert a blank line into the log file
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.Enabled">
+            <summary>
+            Enable or disable logging to the file.
+            </summary>
+            <value>True to enable logging</value>
+            <returns>Boolean, current logging status (enabled/disabled).</returns>
+            <remarks>If this property is False, calls to LogMessage do nothing. If True, messages are written to the log file.</remarks>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.LogFileName">
+            <summary>
+            File name of the log file being created
+            </summary>
+            <value>Filename of the log file without the path.</value>
+            <returns>String filename</returns>
+            <remarks>This call will return an empty string until the first line has been written to the log file because the file is not created until required.</remarks>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.LogFilePath">
+            <summary>
+            Path to the directory in which the log file will be created
+            </summary>
+            <returns>String path</returns>
+            <remarks>This call will return an empty string until the first line has been written to the log file because the file is not created until required.</remarks>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.IdentifierWidth">
+            <summary>
+            Set or return the width of the identifier field in the log message
+            </summary>
+            <value>Width of the identifier field</value>
+            <returns>Integer identifier width</returns>
+            <exception cref="T:ASCOM.InvalidValueException">If the width is less than 0</exception>
+            <remarks>Introduced with Platform 6.4.<para>If set, this width will be used instead of the default identifier field width.</para></remarks>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.UseUtcTime">
+            <summary>
+            Set True to use UTC time, set false to use Local time (default true)
+            </summary>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.RespectCrLf">
+            <summary>
+            Set True to retain carriage return and line feed as control characters. Set false to translate these to [XX] format (default true)
+            </summary>
+        </member>
+        <member name="P:ASCOM.Tools.TraceLogger.LoggingLevel">
+            <summary>
+            Return the current log level.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.Log(ASCOM.Common.Interfaces.LogLevel,System.String)">
+            <summary>
+            Write a message to the log.
+            </summary>
+            <param name="level">Logging level of this message.</param>
+            <param name="message">Message text.</param>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.SetMinimumLoggingLevel(ASCOM.Common.Interfaces.LogLevel)">
+            <summary>
+            Set the minimum log level to display.
+            </summary>
+            <param name="level">Required logging level.</param>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.CreateLogFile">
+            <summary>
+            Create the stream writer that will write to the log file
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.MakePrintable(System.String)">
+            <summary>
+            Translate control characters into printable versions 
+            </summary>
+            <param name="message">Message to be cleansed</param>
+            <returns>Cleaned message string</returns>
+            <remarks>Non printable ASCII characters 0::31 and 127 are translated to [XX] format where XX is a two digit hex code. 
+            Characters 13 and 10 (carriage return and linefeed) are either translated or left as control characters according to the setting of the RespectCrLf property.
+            The default is for these to be left as control characters so that exception stack dumps print properly.</remarks>
+        </member>
+        <member name="M:ASCOM.Tools.TraceLogger.DateTimeNow">
+            <summary>
+            Return a dateTime object reflecting Local or UTC time depending on the setting of the UseUtcTime property.
+            </summary>
+            <returns>DateTime object in either local or UTC time.</returns>
+        </member>
+        <member name="T:ASCOM.Tools.Utilities">
+            <summary>
+            ASCOM support utilities
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DMSToDegrees(System.String)">
+            <summary>
+            Convert a coordinate expressed in sexagesimal degrees to a double value (degrees)
+            </summary>
+            <param name="DMSString">The coordinate expressed in sexagesimal notation (Degrees:Minutes:Seconds)</param>
+            <exception cref="T:ASCOM.InvalidValueException">If the supplied coordinate contains an invalid character. Valid characters are: "+", "-", "0..9", ":" and "the decimal separator used by the current thread".</exception>
+            <returns>The supplied coordinate as a double value (degrees)</returns>
+            <remarks>
+            <para>
+            Only the first three numeric components are considered, the remainder are ignored. Left to right positionally, the components are interpreted as degrees, minutes, and seconds. 
+            If only two components are present, they are assumed to be degrees and minutes, and if only one components is present, it is assumed to be degrees. Any components can have a fractional part. 
+            </para>
+            <para>Examples of valid input values: 127:27:45, 12:26, +345, -45:34:12</para>
+            <para>Examples of valid input values in a locale where point is used as the decimal separator: 60:27:45.846, 12:1.349, +345.1840746, -45:34:12.422</para>
+            <para>Examples of valid input values in a locale where comma is used as the decimal separator: 60:27:45,846, 12:1,349, +345,1840746, -45:34:12,422</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DMSToHours(System.String)">
+            <summary>
+            Convert a coordinate expressed in sexagesimal degrees to a double value (hours)
+            </summary>
+            <param name="DMSString">The coordinate expressed in sexagesimal notation (Degrees:Minutes:Seconds)</param>
+            <exception cref="T:ASCOM.InvalidValueException">If the supplied coordinate contains an invalid character. Valid characters are: "+", "-", "0..9", ":" and "the decimal separator used by the current thread".</exception>
+            <returns>The supplied coordinate as a double value (hours)</returns>
+            <remarks>
+            <para>
+            Only the first three numeric components are considered, the remainder are ignored. Left to right positionally, the components are interpreted as degrees, minutes, and seconds. 
+            If only two components are present, they are assumed to be degrees and minutes, and if only one components is present, it is assumed to be degrees. Any components can have a fractional part. 
+            </para>
+            <para>Examples of valid input values: 127:27:45, 12:26, +345, -45:34:12</para>
+            <para>Examples of valid input values in a locale where point is used as the decimal separator: 60:27:45.846, 12:1.349, +345.1840746, -45:34:12.422</para>
+            <para>Examples of valid input values in a locale where comma is used as the decimal separator: 60:27:45,846, 12:1,349, +345,1840746, -45:34:12,422</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.HMSToHours(System.String)">
+            <summary>
+            Convert a coordinate expressed in sexagesimal hours to a double value (hours)
+            </summary>
+            <param name="HMSString">The coordinate expressed in sexagesimal notation (Hours:Minutes:Seconds)</param>
+            <exception cref="T:ASCOM.InvalidValueException">If the supplied coordinate contains an invalid character. Valid characters are: "+", "-", "0..9", ":" and "the decimal separator used by the current thread".</exception>
+            <returns>The supplied coordinate as a double value (hours)</returns>
+            <remarks>
+            <para>
+            Only the first three numeric components are considered, the remainder are ignored. Left to right positionally, the components are interpreted as hours, minutes, and seconds. 
+            If only two components are present, they are assumed to be hours and minutes, and if only one components is present, it is assumed to be hours. Any components can have a fractional part. 
+            </para>
+            <para>Examples of valid input values: 11:27:45, 12:26, +3, -5:34:12</para>
+            <para>Examples of valid input values in a locale where point is used as the decimal separator: 6:27:45.846, 7:1.349, +8.1840746, -5:34:12.422</para>
+            <para>Examples of valid input values in a locale where comma is used as the decimal separator: 6:27:45,846, 7:1,349, +8,1840746, -5:34:12,422</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.HMSToDegrees(System.String)">
+            <summary>
+            Convert a coordinate expressed in sexagesimal hours to a double value (degrees)
+            </summary>
+            <param name="HMS">The coordinate expressed in sexagesimal notation (Hours:Minutes:Seconds)</param>
+            <exception cref="T:ASCOM.InvalidValueException">If the supplied coordinate contains an invalid character. Valid characters are: "+", "-", "0..9", ":" and "the decimal separator used by the current thread".</exception>
+            <returns>The supplied coordinate as a double value (hours)</returns>
+            <remarks>
+            <para>
+            Only the first three numeric components are considered, the remainder are ignored. Left to right positionally, the components are interpreted as hours, minutes, and seconds. 
+            If only two components are present, they are assumed to be hours and minutes, and if only one components is present, it is assumed to be hours. Any components can have a fractional part. 
+            </para>
+            <para>Examples of valid input values: 11:27:45, 12:26, +3, -5:34:12</para>
+            <para>Examples of valid input values in a locale where point is used as the decimal separator: 6:27:45.846, 7:1.349, +8.1840746, -5:34:12.422</para>
+            <para>Examples of valid input values in a locale where comma is used as the decimal separator: 6:27:45,846, 7:1,349, +8,1840746, -5:34:12,422</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToDMS(System.Double)">
+            <summary>
+            Convert degrees to sexagesimal degrees, minutes and seconds with default delimiters DD° MM' SS" 
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <returns>Sexagesimal representation of degrees input value, degrees, minutes, and seconds</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single 
+            characters.</para>
+            <para>This overload is not available through COM, please use 
+            "DegreesToDMS(ByVal Degrees As Double, ByVal DegDelim As String, ByVal MinDelim As String, ByVal SecDelim As String)"
+            with suitable parameters to achieve this effect.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToDMS(System.Double,System.String,System.String,System.String,System.Int32)">
+            <summary>
+             Convert degrees to sexagesimal degrees, minutes and seconds with specified second decimal places
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <param name="DegDelim">The delimiter string separating degrees and minutes </param>
+            <param name="MinDelim">The delimiter string to append to the minutes part </param>
+            <param name="SecDelim">The delimiter string to append to the seconds part</param>
+            <param name="SecDecimalDigits">The number of digits after the decimal point on the seconds part </param>
+            <returns>Sexagesimal representation of degrees input value, degrees, minutes, and seconds</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single 
+            characters.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToDM(System.Double)">
+            <summary>
+            Convert degrees to sexagesimal degrees and minutes with default delimiters DD° MM'
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <returns>Sexagesimal representation of degrees input value, as degrees and minutes</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters.</para>
+            <para>This overload is not available through COM, please use 
+            "DegreesToDM(ByVal Degrees As Double, ByVal DegDelim As String, ByVal MinDelim As String, ByVal MinDecimalDigits As Integer)"
+            with suitable parameters to achieve this effect.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToDM(System.Double,System.String,System.String,System.Int32)">
+            <summary>
+            Convert degrees to sexagesimal degrees and minutes with the specified number of minute decimal places
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <param name="DegDelim">The delimiter string separating degrees </param>
+            <param name="MinDelim">The delimiter string to append to the minutes </param>
+            <param name="MinDecimalDigits">The number of digits after the decimal point on the minutes part </param>
+            <returns>Sexagesimal representation of degrees input value, as degrees and minutes</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToHMS(System.Double)">
+            <summary>
+            Convert degrees to sexagesimal hours, minutes, and seconds with default delimiters of HH:MM:SS
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <returns>Sexagesimal representation of degrees input value, as hours, minutes, and seconds</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself.</para>
+            <para>This overload is not available through COM, please use 
+            "DegreesToHMS(ByVal Degrees As Double, ByVal HrsDelim As String, ByVal MinDelim As String, ByVal SecDelim As String, ByVal SecDecimalDigits As Integer)"
+            with suitable parameters to achieve this effect.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToHMS(System.Double,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Convert degrees to sexagesimal hours, minutes, and seconds with the specified number of second decimal places
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <param name="HrsDelim">The delimiter string separating hours and minutes</param>
+            <param name="MinDelim">The delimiter string separating minutes and seconds</param>
+            <param name="SecDelim">The delimiter string to append to the seconds part </param>
+            <param name="SecDecimalDigits">The number of digits after the decimal point on the seconds part </param>
+            <returns>Sexagesimal representation of degrees input value, as hours, minutes, and seconds</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters. </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToHM(System.Double)">
+            <summary>
+            Convert degrees to sexagesimal hours and minutes with default delimiters HH:MM
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <returns>Sexagesimal representation of degrees input value as hours and minutes</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters</para>
+            <para>This overload is not available through COM, please use 
+            "DegreesToHM(ByVal Degrees As Double, ByVal HrsDelim As String, ByVal MinDelim As String, ByVal MinDecimalDigits As Integer)"
+            with suitable parameters to achieve this effect.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DegreesToHM(System.Double,System.String,System.String,System.Int32)">
+            <summary>
+            Convert degrees to sexagesimal hours and minutes with supplied number of minute decimal places
+            </summary>
+            <param name="Degrees">The degrees value to convert</param>
+            <param name="HrsDelim">The delimiter string separating hours and minutes</param>
+            <param name="MinDelim">The delimiter string to append to the minutes part</param>
+            <param name="MinDecimalDigits">Number of minutes decimal places</param>
+            <returns>Sexagesimal representation of degrees input value as hours and minutes</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.HoursToHMS(System.Double)">
+            <summary>
+            Convert hours to sexagesimal hours, minutes, and seconds with default delimiters HH:MM:SS
+            </summary>
+            <param name="Hours">The hours value to convert</param>
+            <returns>Sexagesimal representation of hours input value, hours, minutes and seconds</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters.</para>
+            <para>This overload is not available through COM, please use 
+            "HoursToHMS(ByVal Hours As Double, ByVal HrsDelim As String, ByVal MinDelim As String, ByVal SecDelim As String, ByVal SecDecimalDigits As Integer)"
+            with suitable parameters to achieve this effect.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.HoursToHMS(System.Double,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Convert hours to sexagesimal hours, minutes, and seconds with specified number of second decimal places
+            </summary>
+            <param name="Hours">The hours value to convert</param>
+            <param name="HrsDelim">The delimiter string separating hours and minutes </param>
+            <param name="MinDelim">The delimiter string separating minutes and seconds </param>
+            <param name="SecDelim">The delimiter string to append to the seconds part </param>
+            <param name="SecDecimalDigits">The number of digits after the decimal point on the seconds part </param>
+            <returns>Sexagesimal representation of hours input value, hours, minutes and seconds</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.HoursToHM(System.Double)">
+            <summary>
+            Convert hours to sexagesimal hours and minutes with default delimiters HH:MM
+            </summary>
+            <param name="Hours">The hours value to convert</param>
+            <returns>Sexagesimal representation of hours input value as hours and minutes</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters.</para>
+            <para>This overload is not available through COM, please use 
+            "HoursToHM(ByVal Hours As Double, ByVal HrsDelim As String, ByVal MinDelim As String, ByVal MinDecimalDigits As Integer)"
+            with an suitable parameters to achieve this effect.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.HoursToHM(System.Double,System.String,System.String,System.Int32)">
+            <summary>
+            Convert hours to sexagesimal hours and minutes with supplied number of minute decimal places
+            </summary>
+            <param name="Hours">The hours value to convert</param>
+            <param name="HrsDelim">The delimiter string separating hours </param>
+            <param name="MinDelim">The delimiter string to append to the minutes part </param>
+            <param name="MinDecimalDigits">The number of digits after the decimal point on the minutes part </param>
+            <returns>Sexagesimal representation of hours input value as hours and minutes</returns>
+            <remarks>
+            <para>If you need a leading plus sign, you must prepend it yourself. The delimiters are not restricted to single characters.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.ConvertUnits(System.Double,ASCOM.Tools.Unit,ASCOM.Tools.Unit)">
+            <summary>
+            Convert from one set of speed / temperature / pressure rain rate units to another
+            </summary>
+            <param name="InputValue">Value to convert</param>
+            <param name="FromUnits">Integer value from the Units enum indicating the value's current units</param>
+            <param name="ToUnits">Integer value from the Units enum indicating the units to which the input value should be converted</param>
+            <returns>Input value expressed in the new units</returns>
+            <exception cref="T:ASCOM.InvalidOperationException">When the specified from and to units can not refer to the same value. e.g. attempting to convert miles per hour to degrees Celsius</exception>
+            <remarks>
+            <para>Conversions available:</para>
+            <list type="bullet">
+            <item>metres per second &lt;==&gt; miles per hour &lt;==&gt; knots</item>
+            <item>Celsius &lt;==&gt; Fahrenheit &lt;==&gt; Kelvin</item>
+            <item>hecto Pascals (hPa) &lt;==&gt; milli bar(mbar) &lt;==&gt; mm of mercury &lt;==&gt; inches of mercury</item>
+            <item>mm per hour &lt;==&gt; inches per hour</item>
+            </list>
+            <para>Knots conversions use the international nautical mile definition (1 nautical mile = 1852m) rather than the original UK or US Admiralty definitions.</para>
+            <para>For convenience, milli bar and hecto Pascals are shown as separate units even though they have numerically identical values and there is a 1:1 conversion between them.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.Humidity2DewPoint(System.Double,System.Double)">
+            <summary>
+            Calculate the dew point (°Celsius) given the ambient temperature (°Celsius) and relative humidity (%)
+            </summary>
+            <param name="RelativeHumidity">Relative humidity expressed in percent (0.0 .. 100.0)</param>
+            <param name="AmbientTemperature">Ambient temperature (°Celsius)</param>
+            <returns>Dew point (°Celsius)</returns>
+            <exception cref="T:ASCOM.InvalidOperationException">When relative humidity &lt; 0.0% or &gt; 100.0%></exception>
+            <exception cref="T:ASCOM.InvalidOperationException">When ambient temperature &lt; absolute zero or &gt; 100.0C></exception>
+             <remarks>'Calculation uses Vaisala formula for water vapour saturation pressure and is accurate to 0.083% over -20C - +50°C
+            <para>http://www.vaisala.com/Vaisala%20Documents/Application%20notes/Humidity_Conversion_Formulas_B210973EN-F.pdf </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.DewPoint2Humidity(System.Double,System.Double)">
+            <summary>
+            Calculate the relative humidity (%) given the ambient temperature (°Celsius) and dew point (°Celsius)
+            </summary>
+            <param name="DewPoint">Dewpoint in (°Celsius)</param>
+            <param name="AmbientTemperature">Ambient temperature (°Celsius)</param>
+            <returns>Humidity expressed in percent (0.0 .. 100.0)</returns>
+            <exception cref="T:ASCOM.InvalidOperationException">When dew point &lt; absolute zero or &gt; 100.0C></exception>
+            <exception cref="T:ASCOM.InvalidOperationException">When ambient temperature &lt; absolute zero or &gt; 100.0C></exception>
+            <remarks>'Calculation uses the Vaisala formula for water vapour saturation pressure and is accurate to 0.083% over -20C - +50°C
+            <para>http://www.vaisala.com/Vaisala%20Documents/Application%20notes/Humidity_Conversion_Formulas_B210973EN-F.pdf </para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.ConvertPressure(System.Double,System.Double,System.Double)">
+            <summary>
+            Convert atmospheric pressure from one altitude above mean sea level to another
+            </summary>
+            <param name="Pressure">Measured pressure in hPa (mBar) at the "From" altitude</param>
+            <param name="FromAltitudeAboveMeanSeaLevel">"Altitude at which the input pressure was measured (metres)</param>
+            <param name="ToAltitudeAboveMeanSeaLevel">Altitude to which the pressure is to be converted (metres)</param>
+            <returns>Pressure in hPa at the "To" altitude</returns>
+            <remarks>Uses the equation: p = p0 * (1.0 - 2.25577E-05 h)^5.25588</remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.Range(System.Double,System.Double,System.Boolean,System.Double,System.Boolean)">
+            <summary>
+            Flexible routine to range a number into a given range between a lower and an higher bound.
+            </summary>
+            <param name="Value">Value to be ranged</param>
+            <param name="LowerBound">Lowest value of the range</param>
+            <param name="LowerEqual">Boolean flag indicating whether the ranged value can have the lower bound value</param>
+            <param name="UpperBound">Highest value of the range</param>
+            <param name="UpperEqual">Boolean flag indicating whether the ranged value can have the upper bound value</param>
+            <returns>The ranged number as a double</returns>
+            <exception cref="T:ASCOM.InvalidOperationException">Thrown if the lower bound is greater than the upper bound.</exception>
+            <exception cref="T:ASCOM.InvalidOperationException">Thrown if LowerEqual and UpperEqual are both false and the ranged value equals
+            one of these values. This is impossible to handle as the algorithm will always violate one of the rules!</exception>
+            <remarks>
+            UpperEqual and LowerEqual switches control whether the ranged value can be equal to either the upper and lower bounds. So, 
+            to range an hour angle into the range 0 to 23.999999.. hours, use this call: 
+            <code>RangedValue = Range(InputValue, 0.0, True, 24.0, False)</code>
+            <para>The input value will be returned in the range where 0.0 is an allowable value and 24.0 is not i.e. in the range 0..23.999999..</para>
+            <para>It is not permissible for both LowerEqual and UpperEqual to be false because it will not be possible to return a value that is exactly equal 
+            to either lower or upper bounds. An exception is thrown if this scenario is requested.</para>
+            </remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.ConditionHA(System.Double)">
+            <summary>
+            Conditions an hour angle to be in the range -12.0 to +12.0 by adding or subtracting 24.0 hours
+            </summary>
+            <param name="HA">Hour angle to condition</param>
+            <returns>Hour angle in the range -12.0 to +12.0</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.ConditionRA(System.Double)">
+            <summary>
+            Conditions a Right Ascension value to be in the range 0 to 23.999999.. hours 
+            </summary>
+            <param name="RA">Right ascension to be conditioned</param>
+            <returns>Right ascension in the range 0 to 23.999999...</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.Dispose(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ASCOM.Tools.Utilities.Dispose">
+            <summary>
+            Dispose of the Utilities object
+            </summary>
+            <remarks>This method is present to implement the IDisposable pattern, which enables the Utilities component to be referenced within a Using statement.</remarks>
+        </member>
+        <member name="T:ASCOM.Tools.XMLProfile">
+            <summary>
+            Creates and manages an ASCOM Profile as an XML file
+            </summary>
+        </member>
+        <member name="P:ASCOM.Tools.XMLProfile.AlpacaDataPath">
+            <summary>
+            Return the Alpaca folder referenced from the ApplicationDataPath
+            </summary>
+        </member>
+        <member name="P:ASCOM.Tools.XMLProfile.ApplicationDataPath">
+            <summary>
+            Return ASCOM's application data folder on this Base machine
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.#ctor(System.String,System.String,System.UInt32,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Creates an XML profile, loading what exists at the path. This is Home or Documents /ASCOM/Alpaca/{driverID}/{deviceType}/v1/Instance-{deviceID}.xml or /ascom/alpaca/{driverID}/{deviceType}/v1/instance-{deviceID}.xml
+            It is not recommended to access the same file from two different instances of this Profile at the same time 
+            </summary>
+            <param name="driverID">A unique name for your driver. Must be allowed to be in the path.</param>
+            <param name="deviceType">The ASCOM / Alpaca device type IE focuser, camera, telescope, etc.  Must be allowed to be in the path.</param>
+            <param name="deviceNumber">The Alpaca device number. Defaults to 0 for drivers with only one device.</param>
+            <param name="logger">The logging device to be used (can be null).</param>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.#ctor(System.String,ASCOM.Common.Interfaces.ILogger)">
+            <summary>
+            Creates an XML profile, loading what exists at the specified path. It will save any changes at the path
+            It is not recommended to access the same file from two different instances of this Profile at the same time
+            </summary>
+            <param name="pathAndFileName">The path and filename to store the profile at</param>
+            <param name="logger">The logging device to be used (can be null).</param>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.Clear">
+            <summary>
+            Clears all setting and deletes the XML Profile file
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.ContainsKey(System.String)">
+            <summary>
+            Determines whether a settings key already exists
+            </summary>
+            <param name="key">Name of the key</param>
+            <returns>True if the settings key already exists, otherwise false</returns>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.GetValue(System.String)">
+            <summary>
+            Gets a key's current value, returning a KeyNotFound exception if the key doesn't exist
+            </summary>
+            <param name="key">Key name</param>
+            <returns>String key value.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">If the specified key does not exist</exception>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.GetValue(System.String,System.String)">
+            <summary>
+            Gets a key's current value, setting and returning the supplied default value if the key does not already exist
+            </summary>
+            <param name="key">Key name</param>
+            <param name="defaultValue">Value to be set and returned if the key does not already exist.</param>
+            <returns>String key value.</returns>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.GetProfile">
+            <summary>
+            Returns the whole Profile as an XML document
+            </summary>
+            <returns>string XML document</returns>
+            <exception cref="T:System.NullReferenceException">No settings have been loaded.</exception>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.DeleteValue(System.String)">
+            <summary>
+            Deletes a key from the Profile
+            </summary>
+            <param name="key">Key name to delete</param>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.SetProfile(System.String)">
+            <summary>
+            Sets a profile from an XML document
+            </summary>
+            <param name="rawProfile">A raw XML profile string returned by <see cref="M:ASCOM.Tools.XMLProfile.GetProfile"/></param>
+            <exception cref="T:System.ArgumentNullException">If the supplied profile string is null or empty</exception>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.Values">
+            <summary>
+            Returns a list of Profile values
+            </summary>
+            <returns>String list of values</returns>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.Keys">
+            <summary>
+            Returns a list of Profile keys
+            </summary>
+            <returns>String list of keys</returns>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.WriteValue(System.String,System.String)">
+            <summary>
+            Write a key and value to the XML Profile.
+            </summary>
+            <param name="key">Key name.</param>
+            <param name="value">Key value.</param>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.DeSerializeObjectFromFile``1(System.String)">
+            <summary>
+            De-serializes a file and returns an object
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.SerializeObject``1(``0,System.String)">
+            <summary>
+            Serializes a file and returns an object
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serializableObject"></param>
+            <param name="filePathAndName"></param>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.Save">
+            <summary>
+            persist the current Profile to the backing file store
+            </summary>
+        </member>
+        <member name="T:ASCOM.Tools.XMLProfile.SettingsPair">
+            <summary>
+            Class representing an ASCOM Profile Key-Value pair.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.SettingsPair.#ctor">
+            <summary>
+            Initialise the SettingsPair as an empty object.
+            </summary>
+        </member>
+        <member name="M:ASCOM.Tools.XMLProfile.SettingsPair.#ctor(System.String,System.String)">
+            <summary>
+            Initialise the SettingsPair with the supplied key name and value.
+            </summary>
+            <param name="key">The key name for this setting</param>
+            <param name="value">The value of this setting</param>
+        </member>
+        <member name="P:ASCOM.Tools.XMLProfile.SettingsPair.Key">
+            <summary>
+            This setting's Key name.
+            </summary>
+        </member>
+        <member name="P:ASCOM.Tools.XMLProfile.SettingsPair.Value">
+            <summary>
+            This setting's value.
+            </summary>
+        </member>
+        <member name="T:ASCOM.HelperException">
+            <summary>
+            General exception for use within Tools components.
+            </summary>
+        </member>
+        <member name="M:ASCOM.HelperException.#ctor(System.String)">
+            <summary>
+            Create a new exception with message
+            </summary>
+            <param name="message">Message to be reported by the exception</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:ASCOM.HelperException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create a new exception with message and inner exception
+            </summary>
+            <param name="message">Message to be reported by the exception</param>
+            <param name="inner">Exception to be reported as the inner exception</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:ASCOM.HelperException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialise the exception
+            </summary>
+            <param name="info">Serialisation information</param>
+            <param name="context">Serialisation context</param>
+            <remarks></remarks>
+        </member>
+    </members>
+</doc>
