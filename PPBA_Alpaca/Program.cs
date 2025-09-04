@@ -9,7 +9,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var config = Settings.Load(); // Load from file or registry
+        var config = PPBA_Alpaca.AppConfig.Settings.Load();
         var controller = new PPBAController(config.SerialPort);
         var switchDevice = new SwitchDevice(controller, config);
 
