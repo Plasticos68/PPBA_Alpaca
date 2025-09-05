@@ -22,10 +22,10 @@ namespace PPBA_Alpaca.AppConfig
             public LogLevel MinLogLevel => Settings.MinLogLevel;
         }
 
-        // Your original static properties with defaults
+        // Original static properties with defaults
         public static string ServerIPAddress => GetString("ServerIPAddress", "127.0.0.1");
         public static int ServerPort => GetInt("ServerPort", 11111);
-        public static string ComPortName => GetString("ComPortName", "COM1");
+        public static string ComPortName => GetString("ComPortName", "COM11");
         public static int BaudRate => GetInt("BaudRate", 9600);
         public static int DeviceNumber => GetInt("DeviceNumber", 0);
         public static int ReadTimeoutMs => GetInt("ReadTimeoutMs", 500);

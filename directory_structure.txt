@@ -1,0 +1,57 @@
+Folder PATH listing for volume Windows
+Volume serial number is 5ABF-8C81
+C:.
+|   .gitattributes
+|   .gitignore
+|   Alpha1.rar
+|   directory_structure.txt
+|   packages.rar
+|   PPBA_Alpaca.sln
+|   
+\---PPBA_Alpaca
+    |   App.config
+    |   ASCOMBoarderless.png
+    |   CoPilot instructions.txt
+    |   packages.config
+    |   PPBA_Alpaca.csproj
+    |   PPBA_Alpaca.csproj.user
+    |   Program.cs
+    |   SetupForm.cs
+    |   SetupForm.Designer.cs
+    |   structure.txt
+    |   
+    +---Alpaca
+    +---AppConfig
+    |       Settings.cs
+    |       
+    +---Devices
+    |       SwitchDevice.cs
+    |       
+    +---Logging
+    |       Logger.cs
+    |       
+    +---Output
+    +---PPBA
+    |       CommandMap.cs
+    |       Diagnostics.cs
+    |       PPBAController.cs
+    |       
+    +---Properties
+    |       AssemblyInfo.cs
+    |       Resources.Designer.cs
+    |       Resources.resx
+    |       Settings.Designer.cs
+    |       Settings.settings
+    |       
+    +---Servers
+    |       AlpacaDevice.cs
+    |       AlpacaServer.cs
+    |       
+    +---Tests
+    |       PPBAControllerTests.cs
+    |       SwitchDeviceTests.cs
+    |       
+    \---Utils
+            Extensions.cs
+            RetryPolicy.cs
+            
